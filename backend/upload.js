@@ -1,15 +1,17 @@
 const Moralis = require("moralis").default;
-const fs = require("fs"); 
+const fs = require("fs");
 
-async function uploadToIpfs(json) {
-
+async function init() {
     await Moralis.start({
         apiKey: "idTcSRyMYeHeJ57f6h8Z3UhXceJHdlKpxkLQrVrfLsJDoCRT3qcD9jczKCed30rz",
     });
+}
+
+async function uploadToIpfs(json, fileName) {
 
     const uploadArray = [
         {
-            path: "myfile.json",
+            path: `/${fileName}.json`,
             content: json,
         },
     ];
@@ -21,4 +23,4 @@ async function uploadToIpfs(json) {
     return response.result
 }
 
-module.exports = uploadToIpfs;
+module.exports = {uploadToIpfs, init};

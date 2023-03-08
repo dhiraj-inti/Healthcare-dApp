@@ -1,7 +1,8 @@
 const connectToMongo = require('./db');
 const express = require('express')
 const router = express.Router();
-const uploadToIpfs = require('./upload');
+const {uploadToIpfs, init} = require('./upload');
+init()
 
 var cors = require('cors') 
 
@@ -24,7 +25,7 @@ app.get('/', async (req,res)=> {
 
 app.post('/uploadfile',async (req,res)=>{
   const json = req.body;
-  const result = await uploadToIpfs(json);
+  const result = await uploadToIpfs(json,"myFile");
   res.send(result) 
 })
 
