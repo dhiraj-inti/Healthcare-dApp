@@ -10,9 +10,6 @@ connectToMongo();
 const app = express()
 const port = 5000
 
-// const ipfsClient = require('ipfs-http-client')
-// const ipfs = ipfsClient.create({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' })
-
 app.use(cors())
 app.use(express.json())
 
@@ -25,7 +22,7 @@ app.get('/', async (req,res)=> {
 
 app.post('/uploadfile',async (req,res)=>{
   const json = req.body;
-  const result = await uploadToIpfs(json,"myFile");
+  const result = await uploadToIpfs(json,"myFile2");
   res.send(result) 
 })
 
