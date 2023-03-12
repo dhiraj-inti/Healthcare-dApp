@@ -36,7 +36,7 @@ const UserSchema = new Schema({
         }
     ],
     transactions: [ String ],
-    dateOfCreation:{
+    dateOfCreation:{    
         type: Date,
         default: Date.now
     }

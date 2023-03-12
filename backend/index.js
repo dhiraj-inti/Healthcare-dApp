@@ -1,5 +1,5 @@
 const connectToMongo = require('./db');
-const express = require('express')
+const express = require('express');
 const router = express.Router();
 const {uploadToIpfs, init} = require('./upload');
 init()
@@ -14,7 +14,7 @@ app.use(cors())
 app.use(express.json())
 
 // Available Routes
-// app.use('/api/auth', require('./routes/auth'))
+app.use('/api/auth', require('./routes/auth'))
 // app.use('/api/notes', require('./routes/notes'))
 app.get('/', async (req,res)=> {
   res.send("Hello world, this is HealthcareDApp")

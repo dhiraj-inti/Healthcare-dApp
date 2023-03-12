@@ -104,7 +104,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [],
@@ -117,7 +118,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     }
   ],
   "metadata": "{\"compiler\":{\"version\":\"0.8.18+commit.87f61d96\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"string\",\"name\":\"patient\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"doctor\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"pharmacist\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"string[][]\",\"name\":\"medicines\",\"type\":\"string[][]\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"timestamp\",\"type\":\"uint256\"}],\"name\":\"generateReceipt\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"patient\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"doctor\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"pharmacist\",\"type\":\"string\"},{\"internalType\":\"string[][]\",\"name\":\"medicines\",\"type\":\"string[][]\"}],\"name\":\"addToBlockchain\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getAllReceipts\",\"outputs\":[{\"components\":[{\"internalType\":\"string\",\"name\":\"patient\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"doctor\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"pharmacist\",\"type\":\"string\"},{\"internalType\":\"string[][]\",\"name\":\"medicines\",\"type\":\"string[][]\"},{\"internalType\":\"uint256\",\"name\":\"timestamp\",\"type\":\"uint256\"}],\"internalType\":\"struct DrugSales.Receipt[]\",\"name\":\"\",\"type\":\"tuple[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getReceiptsCount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/DrugSales.sol\":\"DrugSales\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/DrugSales.sol\":{\"keccak256\":\"0xb36b3cb2058ff4f9168717ee3d564da35bff75cfd5fc60dd7153157929b5896c\",\"license\":\"UNLICENSED\",\"urls\":[\"bzz-raw://76aff4a9eafc87377dd967eebec48344a615fca73b9eaaaf0c9df6ce2641183d\",\"dweb:/ipfs/QmUHXL1jGLH3L9Hs617n1htgT2KExVtMwrPZfGCBXAWi4w\"]}},\"version\":1}",
@@ -13734,12 +13736,13 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0x5F283130a769e305324CB64c6E955DB0bFA11e42",
-      "transactionHash": "0x76ae0120b2de4b9afec22ac1ce953878be127c9278c93ca7d62fa281852a2720"
+      "address": "0xc406012cdaA21655bc8133f9f10d3e480e035C7A",
+      "transactionHash": "0xe567f713befba32c989284acfe92ff77da7fb6ce28cefbcb2b1a0fa0a179b293"
     }
   },
   "schemaVersion": "3.4.12",
-  "updatedAt": "2023-03-08T13:36:27.739Z",
+  "updatedAt": "2023-03-08T13:43:25.633Z",
+  "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
     "methods": {},
