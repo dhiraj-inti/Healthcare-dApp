@@ -14,7 +14,8 @@ app.use(cors())
 app.use(express.json())
 
 // Available Routes
-app.use('/api/auth', require('./routes/userAuth'))
+app.use('/api/auth/user', require('./routes/userAuth'))
+app.use('/api/auth/doctor', require('./routes/doctorAuth'))
 // app.use('/api/notes', require('./routes/notes'))
 app.get('/', async (req,res)=> {
   res.send("Hello world, this is HealthcareDApp")

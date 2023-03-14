@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const AppointmentSchema = require('./Appointment');
+const PrescriptionSchema = require('./Prescription');
 const { Schema } = mongoose;
 
 const UserSchema = new Schema({
@@ -27,15 +29,9 @@ const UserSchema = new Schema({
         required: true,
         unique: true
     },
-    medicalHistory: [
-        {
-            doctorName: String,
-            slotNo: Number,
-            date: Date,
-            description: String
-        }
-    ],
-    transactions: [ String ],
+    prescriptionHistory: [ PrescriptionSchema ],
+    appointmentsUpcoming: [ AppointmentSchema ],
+    appointmentTransactions: [ String ],
     dateOfCreation:{    
         type: Date,
         default: Date.now

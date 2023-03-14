@@ -39,7 +39,7 @@ router.post('/createuser', [
         address: req.body.address,
         phoneNumber: req.body.phoneNumber,
         transactions: [],
-        medicalHistory: []
+        prescriptionHistory: []
       });
       const data = {
         user: {
@@ -59,7 +59,7 @@ router.post('/createuser', [
 })
 
 // ROUTE 2: Authenticate a User using: POST "/api/auth/login". No login required
-router.post('/userlogin', [
+router.post('/login', [
   body('email', 'Enter a valid email').isEmail(),
   body('password', 'Password cannot be blank').exists(),
 ], async (req, res) => {
