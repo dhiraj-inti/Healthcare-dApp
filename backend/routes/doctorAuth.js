@@ -6,7 +6,7 @@ const bcrypt = require('bcryptjs');
 const fetchdoctor = require('../middleware/fetchdoctor')
 var jwt = require('jsonwebtoken');
 
-const JWT_SECRET = 'SASTRAMiniProject';
+const JWT_SECRET = process.env.JWT_SECRET;
 
 
 // ROUTE 1: Create a User using: POST "/api/auth/doctor/createdoctor". No login required

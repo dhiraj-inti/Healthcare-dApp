@@ -17,15 +17,18 @@ app.use(express.json())
 app.use('/api/auth/user', require('./routes/userAuth'))
 app.use('/api/auth/doctor', require('./routes/doctorAuth'))
 // app.use('/api/notes', require('./routes/notes'))
-app.get('/', async (req,res)=> {
-  res.send("Hello world, this is HealthcareDApp")
-})
-
 app.post('/uploadfile',async (req,res)=>{
   const json = req.body;
   const result = await uploadToIpfs(json,"myFile2");
   res.send(result) 
 })
+
+
+app.get('/', async (req,res)=> {
+  res.send("Hello world, this is HealthcareDApp")
+})
+
+
 
 
 app.listen(port, () => {

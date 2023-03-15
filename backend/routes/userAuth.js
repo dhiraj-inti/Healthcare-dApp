@@ -6,9 +6,9 @@ const bcrypt = require('bcryptjs');
 const fetchuser = require('../middleware/fetchuser')
 var jwt = require('jsonwebtoken');
 
-const JWT_SECRET = 'SASTRAMiniProject';
+const JWT_SECRET = process.env.JWT_SECRET;
 
-// ROUTE 1: Create a User using: POST "/api/auth/createuser". No login required
+// ROUTE 1: Create a User using: POST "/api/auth/user/createuser". No login required
 router.post('/createuser', [
     body('name', 'Enter a valid name').isLength({ min: 3 }),
     body('email', 'Enter a valid email').isEmail(),
@@ -39,6 +39,7 @@ router.post('/createuser', [
         dob: new Date(req.body.dob),
         address: req.body.address,
         phoneNumber: req.body.phoneNumber,
+        ipfsPath: req.body.ipfsPath,
         transactions: [],
         prescriptionHistory: []
       });
