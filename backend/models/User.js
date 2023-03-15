@@ -32,6 +32,10 @@ const UserSchema = new Schema({
     prescriptionHistory: [ PrescriptionSchema ],
     appointmentsUpcoming: [ AppointmentSchema ],
     appointmentTransactions: [ String ],
+    ipfsPath: {
+        type: String,
+        required: true
+    },
     dateOfCreation:{    
         type: Date,
         default: Date.now

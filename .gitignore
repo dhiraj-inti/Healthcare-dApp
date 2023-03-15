@@ -3,6 +3,7 @@
 # dependencies
 /node_modules
 /backend/node_modules
+/backend/.env
 /smart_contracts/node_modules
 /.pnp
 .pnp.js

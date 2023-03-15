@@ -1,9 +1,10 @@
 const Moralis = require("moralis").default;
 const fs = require("fs");
+require('dotenv').config();
 
 async function init() {
     await Moralis.start({
-        apiKey: "idTcSRyMYeHeJ57f6h8Z3UhXceJHdlKpxkLQrVrfLsJDoCRT3qcD9jczKCed30rz",
+        apiKey: process.env.MORALIS_API_KEY,
     });
 }
 
