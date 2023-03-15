@@ -16,7 +16,7 @@ app.use(express.json())
 // Available Routes
 app.use('/api/auth/user', require('./routes/userAuth'))
 app.use('/api/auth/doctor', require('./routes/doctorAuth'))
-// app.use('/api/notes', require('./routes/notes'))
+app.use('/api/prescrition', require('./ro./routes/prescription'))
 app.post('/uploadfile',async (req,res)=>{
   const json = req.body;
   const result = await uploadToIpfs(json,"myFile2");
