@@ -1,5 +1,5 @@
 var jwt = require('jsonwebtoken');
-const JWT_SECRET = 'SASTRAMiniProject';
+const JWT_SECRET = process.env.JWT_SECRET;
 
 const fetchdoctor = (req, res, next) => {
     // Get the doctor from the jwt token and add id to req object
