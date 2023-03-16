@@ -30,7 +30,7 @@ const UserSchema = new Schema({
         unique: true
     },
     prescriptionHistory: [ PrescriptionSchema ],
-    appointmentsUpcoming: [ AppointmentSchema ],
+    appointmentsBooked: [ AppointmentSchema ],
     appointmentTransactions: [ String ],
     ipfsPath: {
         type: String,
