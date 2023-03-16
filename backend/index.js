@@ -2,6 +2,8 @@ const connectToMongo = require('./db');
 const express = require('express');
 const router = express.Router();
 const {uploadToIpfs, init} = require('./upload');
+require('dotenv').config();
+
 init()
 
 var cors = require('cors') 
@@ -16,7 +18,7 @@ app.use(express.json())
 // Available Routes
 app.use('/api/auth/user', require('./routes/userAuth'))
 app.use('/api/auth/doctor', require('./routes/doctorAuth'))
-app.use('/api/prescrition', require('./ro./routes/prescription'))
+app.use('/api/prescription/doctor', require('./routes/prescription'))
 app.post('/uploadfile',async (req,res)=>{
   const json = req.body;
   const result = await uploadToIpfs(json,"myFile2");

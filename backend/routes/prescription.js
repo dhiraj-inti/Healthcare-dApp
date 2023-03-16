@@ -8,10 +8,10 @@ const PrescriptionSchema = require('../models/Prescription');
 
 
 // ROUTE 1: Add a prescription(done by doctor but reflected in User also). Login required
-router.get('/addprescription', fetchdoctor, async (req, res) => {
+router.post('/addprescription', fetchdoctor, async (req, res) => {
     try {
         const doctor = await Doctor.findById(req.doctor.id).select("-password");
-        const prescription = PrescriptionSchema({
+        const prescription = {
             doctorId: req.doctor.id,
             doctorName: req.body.doctorName,
             patientId: req.body.patientId,
@@ -19,15 +19,20 @@ router.get('/addprescription', fetchdoctor, async (req, res) => {
             slotNo: req.body.slotNo,
             date: Date(req.body.date),
             description: req.body.description
-        })
+        }
 
 
-        doctor.finishedAppointments.push(prescription);
+        doctor.finishedAppointments.push(prescription)
         doctor.save();
 
-        const user = await User.findById(req.body.userId).select("-password");
+        const user = await User.findById(req.body.patientId).select("-password");
         user.prescriptionHistory.push(prescription);
         user.save();
+
+        res.json({
+            success: true,
+            prescription
+        })
 
     } catch (error) {
         console.error(error.message);
