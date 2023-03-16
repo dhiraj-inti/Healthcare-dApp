@@ -41,7 +41,7 @@ router.post('/createuser', [
         address: req.body.address,
         phoneNumber: req.body.phoneNumber,
         ipfsPath: req.body.ipfsPath,
-        transactions: [],
+        appointmentsTransactions: [],
         prescriptionHistory: []
       });
       const data = {
