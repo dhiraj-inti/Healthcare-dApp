@@ -31,8 +31,8 @@ contract Appointments {
     }
 
     function addToBlockchain(string memory patient,string memory doctor, uint doctorNo, uint slotNo) public {
-        require(slotNo<slotsCount && slotNo > 0,"Invalid slot number");
-        require(doctorNo<doctorsCount && doctorNo > 0,"Invalid doctor number");
+        require(slotNo<=slotsCount && slotNo > 0,"Invalid slot number");
+        require(doctorNo<=doctorsCount && doctorNo > 0,"Invalid doctor number");
         require(slotsFilled[doctorNo-1][slotNo-1]==false,"Slot already filled");
         bookingsCounter+=1;
         slotsFilled[doctorNo-1][slotNo-1]=true;
