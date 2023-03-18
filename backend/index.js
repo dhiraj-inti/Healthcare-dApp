@@ -18,6 +18,7 @@ app.use(express.json())
 // Available Routes
 app.use('/api/auth/user', require('./routes/userAuth'))
 app.use('/api/auth/doctor', require('./routes/doctorAuth'))
+app.use('/api/auth/pharmacist', require('./routes/pharmacistAuth'))
 app.use('/api/prescription/doctor', require('./routes/prescription'))
 app.use('/api/appointment/user', require('./routes/appointment'))
 app.post('/uploadfile',async (req,res)=>{
