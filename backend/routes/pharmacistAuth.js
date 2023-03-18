@@ -103,7 +103,31 @@ router.post('/login', [
 });
 
 
-// ROUTE 3: Get loggedin pharmacist Details using: POST "/api/auth/pharmacist/getpharmacist". Login required
+// ROUTE 3: Sell medicines pharmacist Details using: POST "/api/auth/pharmacist/sellprescription". Login required
+router.post('/sellprescription', fetchpharmacist, async (req, res) => {
+
+    try {
+        const pharmacistId = req.pharmacist.id;
+        const pharmacist = await Pharmacist.findById(pharmacistId).select("-password")
+        const prescription = {
+            doctorId: req.body.doctorId,
+            doctorName: req.body.doctorName,
+            patientId: req.body.patientId,
+            patientName: req.body.patientName,
+            slotNo: req.body.slotNo,
+            date: Date(req.body.date),
+            description: req.body.description
+        }
+        pharmacist.receiptsGenerated.push(prescription)
+        pharmacist.save()
+        res.send({"idOfReceipt":pharmacist.receiptsGenerated[0]._id})
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("Internal Server Error");
+    }
+})
+
+// ROUTE 4: Get loggedin pharmacist Details using: POST "/api/auth/pharmacist/getpharmacist". Login required
 router.post('/getpharmacist', fetchpharmacist, async (req, res) => {
 
     try {

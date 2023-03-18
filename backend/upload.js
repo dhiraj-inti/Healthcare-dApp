@@ -4,7 +4,7 @@ require('dotenv').config();
 
 async function init() {
     await Moralis.start({
-        apiKey: process.env.MORALIS_API_KEY,
+        apiKey: process.env.MORALIS_API_KEY
     });
 }
 

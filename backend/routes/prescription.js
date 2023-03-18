@@ -3,6 +3,7 @@ const router = express.Router();
 const fetchdoctor = require('../middleware/fetchdoctor');
 const User = require('../models/User');
 const Doctor = require('../models/Doctor');
+const Pharmacist = require('../models/Pharmacist');
 
 
 // ROUTE 1: Add a prescription(done by doctor but reflected in User also). Login required
@@ -26,6 +27,10 @@ router.post('/addprescription', fetchdoctor, async (req, res) => {
         const user = await User.findById(req.body.patientId).select("-password");
         user.prescriptionHistory.push(prescription);
         user.save();
+
+        const pharmacists = await Pharmacist.find({});
+        pharmacists[0].pendingPrescription.push(prescription);
+        pharmacists[0].save();
 
         res.json({
             success: true,
