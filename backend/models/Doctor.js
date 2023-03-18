@@ -33,7 +33,7 @@ const DoctorSchema = new Schema({
         type: String,
         required: true
     },
-    pendingAppointments: [AppointmentSchema],
+    bookedAppointments: [AppointmentSchema],
     finishedAppointments: [PrescriptionSchema],
     dateOfCreation: {
         type: Date,

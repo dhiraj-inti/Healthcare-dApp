@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 
 const AppointmentSchema = new Schema({
     doctorId: {
-        type: Number,
+        type: String,
         required: true
     },
     doctorName: {
@@ -11,7 +11,7 @@ const AppointmentSchema = new Schema({
         required: true
     },
     patientId:{
-        type: Number,
+        type: String,
         required: true
     },
     patientName: {

@@ -3,8 +3,6 @@ const router = express.Router();
 const fetchdoctor = require('../middleware/fetchdoctor');
 const User = require('../models/User');
 const Doctor = require('../models/Doctor');
-const { body, validationResult } = require('express-validator');
-const PrescriptionSchema = require('../models/Prescription');
 
 
 // ROUTE 1: Add a prescription(done by doctor but reflected in User also). Login required

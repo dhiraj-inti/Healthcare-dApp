@@ -19,6 +19,7 @@ app.use(express.json())
 app.use('/api/auth/user', require('./routes/userAuth'))
 app.use('/api/auth/doctor', require('./routes/doctorAuth'))
 app.use('/api/prescription/doctor', require('./routes/prescription'))
+app.use('/api/appointment/user', require('./routes/appointment'))
 app.post('/uploadfile',async (req,res)=>{
   const json = req.body;
   const result = await uploadToIpfs(json,"myFile2");
