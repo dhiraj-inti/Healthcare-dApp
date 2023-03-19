@@ -36,4 +36,23 @@ router.post('/bookappointment', fetchuser, async (req, res) => {
     }
 })
 
+//ROUTE 2: Add an appointment hash to user's schema "api/auth/prescription/addtransaction". Login required
+router.post('/addtransaction', fetchuser, async (req, res) => {
+    try {
+        const transaction = req.body.transaction
+        const user = await User.findById(req.user.id).select("-password");
+        user.appointmentTransactions.push(transaction);
+        user.save();
+
+        res.json({
+            success: true,
+            transaction
+        })
+
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("Internal Server Error");
+    }
+})
+
 module.exports = router;

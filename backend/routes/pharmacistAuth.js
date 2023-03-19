@@ -120,7 +120,7 @@ router.post('/sellprescription', fetchpharmacist, async (req, res) => {
         }
         pharmacist.receiptsGenerated.push(prescription)
         pharmacist.save()
-        res.send({"idOfReceipt":pharmacist.receiptsGenerated[0]._id})
+        res.send({"idOfReceipt":pharmacist.receiptsGenerated[pharmacist.receiptsGenerated.length - 1]._id})
     } catch (error) {
         console.error(error.message);
         res.status(500).send("Internal Server Error");
@@ -134,6 +134,26 @@ router.post('/getpharmacist', fetchpharmacist, async (req, res) => {
         const pharmacistId = req.pharmacist.id;
         const pharmacist = await Pharmacist.findById(pharmacistId).select("-password")
         res.send(pharmacist)
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("Internal Server Error");
+    }
+})
+
+// ROUTE 5: Add receipts generated transactions using: POST "/api/auth/pharmacist/addtransaction". Login required
+router.post('/addtransaction', fetchpharmacist, async (req, res) => {
+
+    try {
+        const transaction = req.body.transaction
+        const pharmacist = await Pharmacist.findById(req.pharmacist.id).select("-password");
+        pharmacist.receiptTransactions.push(transaction)
+        pharmacist.save();
+
+        res.json({
+            success: true,
+            transaction
+        })
+
     } catch (error) {
         console.error(error.message);
         res.status(500).send("Internal Server Error");
