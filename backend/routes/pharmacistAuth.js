@@ -118,7 +118,9 @@ router.post('/sellprescription', fetchpharmacist, async (req, res) => {
             date: Date(req.body.date),
             description: req.body.description
         }
+        pharmacist.pendingPrescription = pharmacist.pendingPrescription.filter((ele) => ele._id.toString() !== req.body.idOfPendingPrescription)
         pharmacist.receiptsGenerated.push(prescription)
+        
         pharmacist.save()
         res.send({"idOfReceipt":pharmacist.receiptsGenerated[pharmacist.receiptsGenerated.length - 1]._id})
     } catch (error) {

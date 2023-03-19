@@ -6,6 +6,11 @@ const Doctor = require('../models/Doctor');
 const Pharmacist = require('../models/Pharmacist');
 
 
+function randomNumber(min, max) {
+    return Math.random() * (max - min) + min;
+}
+
+
 // ROUTE 1: Add a prescription(done by doctor but reflected in User also). Login required
 router.post('/addprescription', fetchdoctor, async (req, res) => {
     try {
@@ -20,7 +25,7 @@ router.post('/addprescription', fetchdoctor, async (req, res) => {
             description: req.body.description
         }
 
-
+        doctor.pendingAppointments = doctor.pendingAppointments.filter((ele)=> ele._id.toString()!==req.body.idOfPendingAppointments)
         doctor.finishedAppointments.push(prescription)
         doctor.save();
 
@@ -29,12 +34,14 @@ router.post('/addprescription', fetchdoctor, async (req, res) => {
         user.save();
 
         const pharmacists = await Pharmacist.find({});
-        pharmacists[0].pendingPrescription.push(prescription);
-        pharmacists[0].save();
+        const randNum = randomNumber(0,pharmacists.length-1)
+        pharmacists[randNum].pendingPrescription.push(prescription);
+        pharmacists[randNum].save();
 
         res.json({
             success: true,
-            prescription
+            prescription,
+            idOfPendingPrescription: pharmacists[randNum].pendingPrescription[pharmacists[randNum].pendingPrescription.length - 1]._id
         })
 
     } catch (error) {

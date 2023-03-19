@@ -22,12 +22,13 @@ router.post('/bookappointment', fetchuser, async (req, res) => {
         user.save();
 
         const doctor = await Doctor.findById(req.body.doctorId).select("-password");
-        doctor.bookedAppointments.push(appointment);
+        doctor.pendingAppointments.push(appointment);
         doctor.save();
 
         res.json({
             success: true,
-            appointment
+            appointment,
+            idOfPendingAppointment: doctor.pendingAppointments[doctor.pendingAppointments.length - 1]._id
         })
 
     } catch (error) {
