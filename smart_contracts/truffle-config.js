@@ -69,6 +69,7 @@ module.exports = {
      port: 7545,            // Standard Ethereum port (default: none)
      network_id: "*",       // Any network (default: none)
     },
+    
     //
     // An additional network, but with some advanced options…
     // advanced: {
@@ -97,7 +98,7 @@ module.exports = {
     //   production: true    // Treats this network as if it was a public net. (default: false)
     // }
   },
-
+  contracts_build_directory: '../src/abi/',
   // Set default mocha options here, use special reporters, etc.
   mocha: {
     // timeout: 100000
