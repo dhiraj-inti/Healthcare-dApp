@@ -5,6 +5,7 @@
 /backend/node_modules
 /backend/.env
 /smart_contracts/node_modules
+/smart_contracts/build
 /.pnp
 .pnp.js
 
