@@ -13,7 +13,9 @@ function App() {
     async function loadBlockchainData() {
       const acc = await web3.eth.getAccounts();
       setaccount(acc[0]);
+      console.log(acc[0])
       setNetId(await web3.eth.net.getId());
+      console.log(netId)
     }
   
     async function loadWeb3() {
