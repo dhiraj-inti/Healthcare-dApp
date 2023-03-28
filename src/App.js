@@ -1,8 +1,16 @@
-import React, { useEffect,useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import Web3 from 'web3';
 import Appointments from './abi/Appointments.json'
 import DrugInventory from './abi/DrugInventory.json'
+import AppointmentsDetail from './components/AppointmentsDetail';
+import { Navbar } from './components/Navbar';
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes
+} from "react-router-dom";
+import { DrugInventoryDetail } from './components/DrugInventoryDetail';
 
 function App() {
   const ethereum = window.ethereum;
@@ -13,7 +21,7 @@ function App() {
   const [DIContract, setDIContract] = useState(null);
   const [res, setResp] = useState([])
   const [drugRes, setDrugRes] = useState([])
-  
+
 
   useEffect(() => {
 
@@ -21,9 +29,9 @@ function App() {
       const acc = await web3.eth.getAccounts();
       setaccount(acc[0]);
     }
-  
+
     async function loadWeb3() {
-  
+
       if (ethereum) {
         web3 = new Web3(ethereum);
         await ethereum.enable();
@@ -39,23 +47,23 @@ function App() {
         const respDI = await DI_contract.methods.getAllReceipts().call()
         let t = []
         let DI = []
-        for(let i=0;i<resp.length;++i){
-          t.push(JSON.stringify({
-            "Doctor":resp[i].doctor,
-            "Patient":resp[i].patient,
-            "Slot Number":resp[i].slotNo,
-            "Timestamp":resp[i].timestamp
-          }))
+        for (let i = 0; i < resp.length; ++i) {
+          t.push({
+            doctor: resp[i].doctor,
+            patient: resp[i].patient,
+            slotNo: resp[i].slotNo,
+            timestamp: resp[i].timestamp
+          })
         }
 
-        for(let i=0;i<respDI.length;++i){
-          DI.push(JSON.stringify({
-            "Doctor ID":respDI[i].doctorId,
-            "Patient":respDI[i].patientName,
-            "Pharmacist":respDI[i].pharmaId,
-            "Medicines":respDI[i].medicines,
-            "Timestamp":respDI[i].timestamp
-          }))
+        for (let i = 0; i < respDI.length; ++i) {
+          DI.push({
+            doctorId: respDI[i].doctorId,
+            patient: respDI[i].patientName,
+            pharmaId: respDI[i].pharmaId,
+            medicines: respDI[i].medicines,
+            timestamp: respDI[i].timestamp
+          })
         }
         setResp(t);
         setDrugRes(DI);
@@ -73,30 +81,20 @@ function App() {
 
 
   return (
-    <div className="App">
-      <h3>Account used on this page is : {account}</h3> 
-      <div>
-        <h1>Appointments Details</h1>
-        {res.map((ele)=>{
-          return (
-            <div>
-              {ele}
-            </div>
-          )
-        })}
-      </div>
+    <>
+      <Router>
+        <Navbar />
+        <div className="container">
+          <Routes>
+            <Route path="appointments" element={<AppointmentsDetail res={res} />} />
+            <Route path="druginv" element={<DrugInventoryDetail drugRes={drugRes} />} />
+          </Routes>
 
-      <div>
-        <h1>Drug Inventory Details</h1>
-        {drugRes.map((ele)=>{
-          return (
-            <div>
-              {ele}
-            </div>
-          )
-        })}
-      </div>
-    </div>
+
+        </div>
+      </Router>
+    </>
+
   );
 }
 
