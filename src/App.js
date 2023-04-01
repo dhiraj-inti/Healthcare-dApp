@@ -51,9 +51,8 @@ function App() {
 
 
   return (
-    <div className="App">
-      Hello this is Healthcare dApp {account} {netId} {contract}
-      </div>    
+    
+    
   );
 }
 export default App;
