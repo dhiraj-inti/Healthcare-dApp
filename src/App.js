@@ -51,8 +51,19 @@ function App() {
 
 
   return (
-    
-    
+    <>
+      <Router>
+        <Navbar />
+        <div className="container">
+          <Routes>
+            <Route path="appointments" element={<AppointmentsDetail res={res} />} />
+            <Route path="druginv" element={<DrugInventoryDetail drugRes={drugRes} />} />
+          </Routes>
+          
+        </div>
+      </Router>
+    </>
+
   );
 }
 export default App;
