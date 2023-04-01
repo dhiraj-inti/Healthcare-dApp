@@ -2,7 +2,7 @@ import React, { useEffect,useState } from 'react';
 import './App.css';
 import Web3 from 'web3';
 import Appointments from './abi/Appointments.json'
-
+import DrugInventory from './abi/DrugInventory.json'
 function App() {
   const ethereum = window.ethereum;
   let web3 = window.web3;
@@ -27,9 +27,12 @@ function App() {
         setNetId(x)
         const networkData = Appointments.networks[x];
         const t_contract = new web3.eth.Contract(Appointments.abi, networkData.address);
+        const d_contract = new web3.eth.Contract(DrugInventory.abi, networkData.address);
         setContract(t_contract);
         const resp = await t_contract.methods.getAllAppointments().call()
+        const resp2 = await d_contract.methods.getReceipt().call()
         console.log(resp)
+        console.log(resp2)
       } else if (web3) {
         web3 = new Web3(web3.currentProvider);
       } else {
@@ -47,9 +50,8 @@ function App() {
 
   return (
     <div className="App">
-      Hello this is Helathcare dApp {account} {netId}
-    </div>
+      Hello this is Healthcare dApp {account} {netId} {contract}
+      </div>    
   );
 }
-
 export default App;
