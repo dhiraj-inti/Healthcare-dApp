@@ -36,7 +36,7 @@ const UserState = (props) => {
         const response = await fetch(`${host}/api/auth/user/login`, {
             method: 'POST',
             headers: {
-                'auth-token': authToken,
+                'auth-token': localStorage.getItem('token'),
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({patientName, doctorId, doctorName, slotNo, date})
