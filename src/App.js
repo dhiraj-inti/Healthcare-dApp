@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import Web3 from 'web3';
 import Appointments from './abi/Appointments.json'
@@ -9,7 +9,10 @@ function App() {
   const [account, setaccount] = useState("");
   const [netId, setNetId] = useState()
   const [contract, setContract] = useState(null);
-  
+  const [DIContract, setDIContract] = useState(null);
+  const [res, setResp] = useState([])
+  const [drugRes, setDrugRes] = useState([])
+
 
   useEffect(() => {
 
@@ -17,15 +20,16 @@ function App() {
       const acc = await web3.eth.getAccounts();
       setaccount(acc[0]);
     }
-  
+
     async function loadWeb3() {
-  
+
       if (ethereum) {
         web3 = new Web3(ethereum);
         await ethereum.enable();
         const x = await web3.eth.net.getId()
         setNetId(x)
         const networkData = Appointments.networks[x];
+        const networkDataDI = DrugInventory.networks[x];
         const t_contract = new web3.eth.Contract(Appointments.abi, networkData.address);
         const d_contract = new web3.eth.Contract(DrugInventory.abi, networkData.address);
         setContract(t_contract);
@@ -42,8 +46,6 @@ function App() {
 
     loadWeb3()
     loadBlockchainData()
-    
-    // fetchDataFromBlockchain();
     // eslint-disable-next-line
   }, [])
 
