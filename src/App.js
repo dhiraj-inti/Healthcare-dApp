@@ -3,6 +3,8 @@ import './App.css';
 import Web3 from 'web3';
 import Appointments from './abi/Appointments.json'
 import DrugInventory from './abi/DrugInventory.json'
+import AppointmentsDetail from "./components/user/AppointmentsDetail"
+import DrugInventoryDetail from "./components/pharmacist/DrugInventoryDetail"
 function App() {
   const ethereum = window.ethereum;
   let web3 = window.web3;
