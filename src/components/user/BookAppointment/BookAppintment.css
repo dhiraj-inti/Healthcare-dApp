@@ -1,0 +1,8 @@
+Form{
+    display: "flex";
+    flex-direction: "column";
+}
+Form.Group{
+    display: "flex";
+    flex-direction: "row";
+}
