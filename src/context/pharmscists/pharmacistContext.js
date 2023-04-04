@@ -1,5 +1,5 @@
 import { createContext } from "react";
 
-const pharmacistContext = createContext();
+const PharmacistContext = createContext();
 
-export default pharmacistContext;
+export default PharmacistContext;
