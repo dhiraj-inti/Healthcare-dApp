@@ -14,6 +14,8 @@ import { AdminLogin } from "./components/admin/AdminLogin";
 import { BookAppointment } from "./components/user/BookAppointment/BookAppointment";
 import { SellMedicine } from "./components/pharmacist/SellMedicine/SellMedicine";
 import { AccountDetails } from "./components/AccountDetails";
+import UserState from "./context/users/UserState";
+import PharmacistState from "./context/pharmscists/pharmacistState";
 function App() {
   const ethereum = window.ethereum;
   let web3 = window.web3;
@@ -65,24 +67,33 @@ function App() {
 
   return (
     <>
+      <UserState>
+      <PharmacistState>
       <Router>
-        <Navbar/>
+        <Navbar />
         <div className="container">
           <Routes>
             <Route exact path="/" element={<First />} />
-            <Route exact path="userlogin" element={<UserLogin name="user" />} />
+            
+              <Route
+                exact
+                path="userlogin"
+                element={<UserLogin name="user" />}
+              />
+              <Route
+                exact
+                path="user/appointments"
+                element={<AppointmentsDetail res={res} />}
+              />
+              <Route
+                exact
+                path="user/bookappointment"
+                element={<BookAppointment />}
+              />
+            
             <Route exact path="pharmalogin" element={<PharmaLogin />} />
             <Route exact path="adminlogin" element={<AdminLogin />} />
-            <Route
-              exact
-              path="user/appointments"
-              element={<AppointmentsDetail res={res} />}
-            />
-            <Route
-              exact
-              path="user/bookappointment"
-              element={<BookAppointment />}
-            />
+
             <Route
               exact
               path="pharma/druginv"
@@ -97,6 +108,8 @@ function App() {
           </Routes>
         </div>
       </Router>
+      </PharmacistState>
+      </UserState>
     </>
   );
 }

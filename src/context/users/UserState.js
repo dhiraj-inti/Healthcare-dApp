@@ -14,8 +14,8 @@ const UserState = (props) => {
             },
             body: JSON.stringify({email, password})
         });
-        localStorage.setItem('token',response.authtoken);
         const res = await response.json();
+        
         return res;
     }
 
