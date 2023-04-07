@@ -52,11 +52,13 @@ export const Navbar = (props) => {
               <li className="nav-item">
                 <Link
                   className={`nav-link ${
-                    location.pathname === "/accdetails" ? "active" : ""
+                    location.pathname === "/user/bookappointment"
+                      ? "active"
+                      : ""
                   }`}
-                  to="/accdetails"
+                  to="/user/bookappointment"
                 >
-                  Account Details
+                  Book An Appointment
                 </Link>
               </li>
               <li className="nav-item">
@@ -73,13 +75,11 @@ export const Navbar = (props) => {
               <li className="nav-item">
                 <Link
                   className={`nav-link ${
-                    location.pathname === "/user/bookappointment"
-                      ? "active"
-                      : ""
+                    location.pathname === "/user/accdetails" ? "active" : ""
                   }`}
-                  to="/user/bookappointment"
+                  to="/user/accdetails"
                 >
-                  Book An Appointment
+                  Account Details
                 </Link>
               </li>
             </ul>
@@ -90,11 +90,11 @@ export const Navbar = (props) => {
               <li className="nav-item">
                 <Link
                   className={`nav-link ${
-                    location.pathname === "/accdetails" ? "active" : ""
+                    location.pathname === "/pharma/sellmedicine" ? "active" : ""
                   }`}
-                  to="/accdetails"
+                  to="/pharma/sellmedicine"
                 >
-                  Account Details
+                  Sell Medicines
                 </Link>
               </li>
               <li className="nav-item">
@@ -110,11 +110,11 @@ export const Navbar = (props) => {
               <li className="nav-item">
                 <Link
                   className={`nav-link ${
-                    location.pathname === "/pharma/sellmedicine" ? "active" : ""
+                    location.pathname === "/pharma/accdetails" ? "active" : ""
                   }`}
-                  to="/pharma/sellmedicine"
+                  to="/pharma/accdetails"
                 >
-                  Sell Medicines
+                  Account Details
                 </Link>
               </li>
             </ul>
@@ -125,19 +125,9 @@ export const Navbar = (props) => {
               <li className="nav-item">
                 <Link
                   className={`nav-link ${
-                    location.pathname === "/accdetails" ? "active" : ""
+                    location.pathname === "/admin/druginv" ? "active" : ""
                   }`}
-                  to="/accdetails"
-                >
-                  Account Details
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link
-                  className={`nav-link ${
-                    location.pathname === "/pharma/druginv" ? "active" : ""
-                  }`}
-                  to="/pharma/druginv"
+                  to="/admin/druginv"
                 >
                   Drug Inventory
                 </Link>
@@ -145,11 +135,22 @@ export const Navbar = (props) => {
               <li className="nav-item">
                 <Link
                   className={`nav-link ${
-                    location.pathname === "/pharma/sellmedicine" ? "active" : ""
+                    location.pathname === "/admin/appointments" ? "active" : ""
                   }`}
-                  to="/pharma/sellmedicine"
+                  aria-current="page"
+                  to="/admin/appointments"
                 >
-                  Sell Medicines
+                  Appointments
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link
+                  className={`nav-link ${
+                    location.pathname === "/admin/accdetails" ? "active" : ""
+                  }`}
+                  to="/admin/accdetails"
+                >
+                  Account Details
                 </Link>
               </li>
             </ul>

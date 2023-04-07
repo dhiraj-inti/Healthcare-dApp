@@ -5,13 +5,13 @@ import { useNavigate } from "react-router-dom";
 export const First = () => {
     const navigate = useNavigate(); 
     const userLogin = () => {
-        navigate('/userlogin');
+        navigate('/user/login');
     };
     const pharmaLogin = () => {
-        navigate('/pharmalogin');
+        navigate('/pharma/login');
     };
     const adminLogin = () => {
-        navigate('/adminlogin');
+        navigate('/admin/login');
     };
     return(
         <>
