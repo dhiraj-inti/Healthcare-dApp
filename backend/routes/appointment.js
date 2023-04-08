@@ -21,14 +21,16 @@ router.post('/bookappointment', fetchuser, async (req, res) => {
         user.appointmentsBooked.push(appointment);
         user.save();
 
-        const doctor = await Doctor.findById(req.body.doctorId).select("-password");
-        doctor.pendingAppointments.push(appointment);
-        doctor.save();
+        if (req.body.doctorId > 100) {
+            const doctor = await Doctor.findById(req.body.doctorId).select("-password");
+            doctor.pendingAppointments.push(appointment);
+            doctor.save();
+        }
+
 
         res.json({
             success: true,
-            appointment,
-            idOfPendingAppointment: doctor.pendingAppointments[doctor.pendingAppointments.length - 1]._id
+            appointment
         })
 
     } catch (error) {

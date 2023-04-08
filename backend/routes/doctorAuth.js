@@ -116,5 +116,17 @@ router.post('/getdoctor', fetchdoctor, async (req, res) => {
     }
 })
 
+// ROUTE 4: Get all doctors details using: POST "/api/auth/doctor/getalldoctors".
+router.get('/getalldoctors', async (req, res) => {
+    try {
+        const doctors = await Doctor.find({});
+        const json = await doctors.json()
+        res.send(json)
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("Internal Server Error");
+    }
+})
+
 
 module.exports = router;

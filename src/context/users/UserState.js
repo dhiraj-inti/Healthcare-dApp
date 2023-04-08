@@ -33,7 +33,7 @@ const UserState = (props) => {
     }
 
     const bookAppointment = async(patientName, doctorId, doctorName, slotNo, date) => {
-        const response = await fetch(`${host}/api/auth/user/login`, {
+        const response = await fetch(`${host}/api/appointment/user/bookappointment`, {
             method: 'POST',
             headers: {
                 'auth-token': localStorage.getItem('token'),
