@@ -1,15 +1,35 @@
-import React ,{useState} from "react";
+import React ,{useState,useContext} from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import userContext from "../../context/users/userContext";
 export const BookAppointment = () => {
   const [details, setDetails] = useState({doctorName:"", patientName:"", slotNo:"", date:""});
+  const context = useContext(userContext);
+  const {bookAppointment} = context;
   const onSubmit = (e) => {
     e.preventDefault();
     console.log(details);
+    const isDateValid = dateValidation();
+    console.log(isDateValid);
+    if(!isDateValid){
+      alert("Date cannot be in the past.")
+    }
+    //check if slot is available 
+    //GET DOC ID BEFORE SENDING
+    bookAppointment(details.patientName,details.doctorName, details.slotNo, details.date);
+    //send data to blockchain if available else raise alert
   }
   const onChange = (e) => {
     setDetails({ ...details, [e.target.name]: e.target.value });
   };
+  const dateValidation = () => {
+    var now = new Date();
+    console.log(now.toJSON().slice(0, 10))
+    if(details.date<= now.toJSON().slice(0, 10)){
+      return false;
+    }
+    return true;
+  }
   return (
     <>
       <h1>Book an Appointment</h1>
