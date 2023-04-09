@@ -19,7 +19,7 @@ export const BookAppointment = () => {
     }
 
     getAllDoctors();
-  },[doctors])
+  },[])
   const onSubmit = (e) => {
     e.preventDefault();
     console.log(details);

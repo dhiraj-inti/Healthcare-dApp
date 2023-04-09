@@ -120,8 +120,7 @@ router.post('/getdoctor', fetchdoctor, async (req, res) => {
 router.get('/getalldoctors', async (req, res) => {
     try {
         const doctors = await Doctor.find({});
-        const json = await doctors.json()
-        res.send(json)
+        res.send(doctors)
     } catch (error) {
         console.error(error.message);
         res.status(500).send("Internal Server Error");
