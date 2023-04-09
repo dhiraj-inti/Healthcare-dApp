@@ -1,11 +1,25 @@
-import React ,{useState,useContext} from "react";
+import React ,{useState,useContext, useEffect} from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import userContext from "../../context/users/userContext";
 export const BookAppointment = () => {
   const [details, setDetails] = useState({doctorName:"", patientName:"", slotNo:"", date:""});
+  const [doctors, setDoctors] = useState([]);
   const context = useContext(userContext);
   const {bookAppointment} = context;
+  useEffect(() => {
+    async function getAllDoctors(){
+      const resp = await fetch('http://localhost:5000/api/auth/doctor/getalldoctors',{
+        method:'GET'
+      })
+
+      const doctorArray = await resp.json();
+      console.log(doctorArray)
+      setDoctors(doctorArray)
+    }
+
+    getAllDoctors();
+  },[doctors])
   const onSubmit = (e) => {
     e.preventDefault();
     console.log(details);
