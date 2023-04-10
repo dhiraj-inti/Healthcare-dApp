@@ -2,6 +2,7 @@ import React from "react"
 
 const AppointmentsDetail = (props) => {
     const res = props.res;
+    console.log(res)
     return (
         <div>
             <h1>Appointments Details</h1>

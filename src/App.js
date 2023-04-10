@@ -53,7 +53,8 @@ function App() {
         );
         setContract(t_contract);
         const resp = await t_contract.methods.getAllAppointments().call();
-        const resp2 = await d_contract.methods.getReceipt().call();
+        setResp(resp);
+        const resp2 = await d_contract.methods.getAllReceipts().call();
         console.log(resp);
         console.log(resp2);
       } else if (web3) {
