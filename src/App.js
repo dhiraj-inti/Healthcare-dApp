@@ -49,13 +49,14 @@ function App() {
         );
         const d_contract = new web3.eth.Contract(
           DrugInventory.abi,
-          networkData.address
+          networkDataDI.address
         );
-        setContract(t_contract);
+
         const resp = await t_contract.methods.getAllAppointments().call();
-        const resp2 = await d_contract.methods.getReceipt().call();
-        console.log(resp);
-        console.log(resp2);
+        setResp(resp)
+        
+        const resp2 = await d_contract.methods.getAllReceipts().call()
+        setDrugRes(resp2)
       } else if (web3) {
         web3 = new Web3(web3.currentProvider);
       } else {
