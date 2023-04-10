@@ -98,7 +98,7 @@ function App() {
                 <Route
                   exact
                   path="user/accdetails"
-                  element={<AccountDetails />}
+                  element={<AccountDetails type="user" account={account}/>}
                 />
 
                 <Route exact path="/pharma" element={<PharmaHome />} />
@@ -118,7 +118,7 @@ function App() {
                 <Route
                   exact
                   path="pharma/accdetails"
-                  element={<AccountDetails />}
+                  element={<AccountDetails type="pharmacist" account={account}/>}
                 />
 
                 <Route exact path="admin" element={<AdminHome />} />
@@ -136,7 +136,7 @@ function App() {
                 <Route
                   exact
                   path="admin/accdetails"
-                  element={<AccountDetails />}
+                  element={<AccountDetails type="admin" account={account}/>}
                 />
               </Routes>
             </div>
