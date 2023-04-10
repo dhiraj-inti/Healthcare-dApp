@@ -11,10 +11,12 @@ contract Appointments {
         string patient;
         string doctor;
         uint slotNo;
+        uint doctorNo;
+        string date;
         uint256 timestamp;
     }
 
-    event bookAppointment(string patient, string doctor, uint doctorNo, uint slotNo, uint256 timestamp);
+    event bookAppointment(string patient, string doctor, uint doctorNo, uint slotNo, string date, uint256 timestamp);
 
     Appointment[] appointments;
 
@@ -30,15 +32,15 @@ contract Appointments {
         }
     }
 
-    function addToBlockchain(string memory patient,string memory doctor, uint doctorNo, uint slotNo) public {
+    function addToBlockchain(string memory patient,string memory doctor, uint doctorNo, uint slotNo, string memory date) public {
         require(slotNo<=slotsCount && slotNo > 0,"Invalid slot number");
         require(doctorNo<=doctorsCount && doctorNo > 0,"Invalid doctor number");
         require(slotsFilled[doctorNo-1][slotNo-1]==false,"Slot already filled");
         bookingsCounter+=1;
         slotsFilled[doctorNo-1][slotNo-1]=true;
-        appointments.push(Appointment(patient, doctor, slotNo, block.timestamp));
+        appointments.push(Appointment(patient, doctor, slotNo, doctorNo, date, block.timestamp));
 
-        emit bookAppointment(patient, doctor, doctorNo, slotNo, block.timestamp);
+        emit bookAppointment(patient, doctor, doctorNo, slotNo, date, block.timestamp);
     } 
 
     function getAllAppointments() public view returns (Appointment[] memory) {
