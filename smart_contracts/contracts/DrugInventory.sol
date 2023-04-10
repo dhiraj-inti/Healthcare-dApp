@@ -17,7 +17,7 @@ contract DrugInventory {
         string[][] medicines,
         uint256 timestamp
     );
-    Receipt[] public receipts;
+    Receipt[] receipts;
 
     function addReceipt(
         string memory pname,
