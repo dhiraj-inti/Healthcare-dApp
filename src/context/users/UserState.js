@@ -28,6 +28,7 @@ const UserState = (props) => {
         });
 
         const res = await response.json();
+        res.dob = (new Date(res.dob)).toLocaleDateString()
         setUser(res);
         return res;
     }

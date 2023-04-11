@@ -11,6 +11,7 @@ const AppointmentsDetail = (props) => {
                         <th scope="col">#</th>
                         <th scope="col">Patient Name</th>
                         <th scope="col">Doctor Name</th>
+                        {props.type==="admin" && <th scope="col">Doctor ID</th>}
                         <th scope="col">Slot Number</th>
                         <th scope="col">Date</th>
                     </tr>
@@ -22,6 +23,7 @@ const AppointmentsDetail = (props) => {
                             <th scope="row">{i+1}</th>
                             <td>{ele.patient}</td>
                             <td>{ele.doctor}</td>
+                            {props.type==="admin" && <td scope="col">{ele.doctorNo}</td>}
                             <td>{ele.slotNo}</td>
                             <td>{ele.date}</td>
                         </tr>

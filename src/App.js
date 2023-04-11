@@ -126,7 +126,7 @@ function App() {
                 <Route
                   exact
                   path="admin/appointments"
-                  element={<AppointmentsDetail res={res} />}
+                  element={<AppointmentsDetail type="admin" res={res} />}
                 />
                 <Route
                   exact
