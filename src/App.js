@@ -41,23 +41,23 @@ function App() {
         await ethereum.enable();
         const x = await web3.eth.net.getId();
         setNetId(x);
-        //const networkData = Appointments.networks[x];
+        const networkData = Appointments.networks[x];
         const networkDataDI = DrugInventory.networks[x];
-        /*const t_contract = new web3.eth.Contract(
+        const t_contract = new web3.eth.Contract(
           Appointments.abi,
           networkData.address
-        );*/
+        );
         const d_contract = new web3.eth.Contract(
           DrugInventory.abi,
           networkDataDI.address
         );
-        //const resp = await t_contract.methods.getAllAppointments().call();
-        //setResp(resp)
+        const resp = await t_contract.methods.getAllAppointments().call();
+        setResp(resp)
         
         const resp2 = await d_contract.methods.getAllReceipts().call()
-        //console.log(resp2)
+        console.log(resp2)
         setDrugRes(resp2)
-        d_contract.methods.addReceipt("Dhunna",2,3,[["P 650","2"]]).send({from:account}).then((receipt) =>{
+        d_contract.methods.addReceipt("Mary",2,3,[["P 650","2"]]).send({from:account}).then((receipt) =>{
           console.log(receipt)
       })
       } else if (web3) {
