@@ -8,6 +8,7 @@ contract DrugInventory {
         uint256 doctorId;
         uint256 pharmaId;
         string[][] medicines;
+        string date;
         uint256 timestamp;
     }
     event generateReceipt(
@@ -15,6 +16,7 @@ contract DrugInventory {
         uint256 doctorId,
         uint256 pharmaId,
         string[][] medicines,
+        string date,
         uint256 timestamp
     );
     Receipt[] receipts;
@@ -23,11 +25,12 @@ contract DrugInventory {
         string memory pname,
         uint256 docid,
         uint256 phid,
-        string[][] memory _medicines
+        string[][] memory _medicines,
+        string memory date
     ) public {
-        receipts.push(Receipt(pname, docid, phid, _medicines, block.timestamp));
+        receipts.push(Receipt(pname, docid, phid, _medicines, date, block.timestamp));
         receiptsGenerated += 1;
-        emit generateReceipt(pname, docid, phid, _medicines, block.timestamp);
+        emit generateReceipt(pname, docid, phid, _medicines, date, block.timestamp);
     }
 
     function getAllReceipts() public view returns (Receipt[] memory) {

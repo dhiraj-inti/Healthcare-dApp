@@ -28,6 +28,7 @@ const PharmacistState = (props) => {
         });
 
         const res = await response.json();
+        res.dob = (new Date(res.dob)).toLocaleDateString()
         setPharmacist(res);
         return res;
     }
