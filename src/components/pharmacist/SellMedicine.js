@@ -19,7 +19,7 @@ export const SellMedicine = () => {
       alert("Date cannot be in the future.")
     }
     generateReceipt(details.doctorName,details.patientName,details.slotNo,details.date,details.description);
-    //send data to blockchain 
+  
 
   }
   const dateValidation = () => {
