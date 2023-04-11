@@ -30,6 +30,8 @@ export const AccountDetails = (props) => {
       else {
         json = {
           name: "Admin",
+          email: "admin@healthcareDapp.com",
+          phoneNumber: "888889000",
           Account: props.account
         }
         setDetails(json)
@@ -70,6 +72,24 @@ export const AccountDetails = (props) => {
             <tr>
               <td><b>E - Mail</b></td>
               <td>{details.email}</td>
+            </tr>
+            <tr>
+              <td ><b>Account Address</b></td>
+              <td>{details.Account}</td>
+            </tr>
+          </tbody>}
+          {details!==null && props.type==="admin" && <tbody>
+            <tr>
+              <td><b>Name</b></td>
+              <td>{details.name}</td>
+            </tr>
+            <tr>
+              <td><b>E - Mail</b></td>
+              <td>{details.email}</td>
+            </tr>
+            <tr>
+              <td><b>Phone number</b></td>
+              <td>{details.phoneNumber}</td>
             </tr>
             <tr>
               <td ><b>Account Address</b></td>

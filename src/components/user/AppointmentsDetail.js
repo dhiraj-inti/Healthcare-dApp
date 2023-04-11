@@ -12,7 +12,7 @@ const AppointmentsDetail = (props) => {
                         <th scope="col">Patient Name</th>
                         <th scope="col">Doctor Name</th>
                         <th scope="col">Slot Number</th>
-                        <th scope="col">Timestamp</th>
+                        <th scope="col">Date</th>
                     </tr>
                 </thead>
                 <tbody className="table-hover"> 
@@ -23,7 +23,7 @@ const AppointmentsDetail = (props) => {
                             <td>{ele.patient}</td>
                             <td>{ele.doctor}</td>
                             <td>{ele.slotNo}</td>
-                            <td>{ele.timestamp}</td>
+                            <td>{ele.date}</td>
                         </tr>
                     )
                 })}

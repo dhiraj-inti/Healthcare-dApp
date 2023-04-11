@@ -13,7 +13,7 @@ export const DrugInventoryDetail = (props) => {
                         <th scope="col">Doctor ID</th>
                         <th scope="col">Pharmacist ID</th>
                         <th scope="col">Medicines</th>
-                        <th scope="col">Timestamp</th>
+                        <th scope="col">Date</th>
                     </tr>
                 </thead>
                 <tbody className="table-hover">
@@ -21,7 +21,7 @@ export const DrugInventoryDetail = (props) => {
                         return (
                             <tr key={i}>
                                 <th scope="row">{i + 1}</th>
-                                <td>{ele.patient}</td>
+                                <td>{ele.patientName}</td>
                                 <td>{ele.doctorId}</td>
                                 <td>{ele.pharmaId}</td>
                                 <td>{ele.medicines.map((item,j)=>{
@@ -29,7 +29,7 @@ export const DrugInventoryDetail = (props) => {
                                         <p key={ele.timestamp + j}>{item[0]} - {item[1]}</p>
                                     )
                                 })}</td>
-                                <td>{ele.timestamp}</td>
+                                <td>{ele.date}</td>
                             </tr>
                         )
                     })}
