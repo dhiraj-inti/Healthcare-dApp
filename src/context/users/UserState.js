@@ -61,6 +61,19 @@ const UserState = (props) => {
         return res;
     }
 
+    const getIpfsPath = async(name, chronicConditions) => {
+        const response = await fetch(`${host}/api/auth/user/createuser`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({name, chronicConditions})
+        });
+
+        const res = await response.json();
+        return res;
+    }
+
     return (
         <UserContext.Provider value={{ user, myAppointments, login, getUser,bookAppointment, signup }}>
           {props.children}
