@@ -62,7 +62,7 @@ const UserState = (props) => {
     }
 
     const getIpfsPath = async(name, chronicConditions) => {
-        const response = await fetch(`${host}/api/auth/user/createuser`, {
+        const response = await fetch(`${host}/uploadfile`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
