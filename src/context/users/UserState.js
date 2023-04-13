@@ -49,13 +49,13 @@ const UserState = (props) => {
         return res;
     }
 
-    const signup = async(name,email,password,dob,address,ipfsPath) => {
+    const signup = async(name,email,password,dob,address,phoneNumber,ipfsPath) => {
         const response = await fetch(`${host}/api/auth/user/createuser`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({name,email,password,dob,address,ipfsPath})
+            body: JSON.stringify({name,email,password,dob,address,phoneNumber,ipfsPath})
         });
         const res = await response.json();
         return res;
