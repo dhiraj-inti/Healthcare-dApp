@@ -1,14 +1,31 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 
 export const Navbar = (props) => {
   let location = useLocation();
   const [type, setType] = useState(null);
   const [login, setLogin] = useState(false);
+  const navigate = useNavigate();
+  const Logout = () =>{
+    let x = location.pathname;
+    let c = x.charAt(1);
+    if(c==="u"){
+      localStorage.removeItem('token');
+      navigate('/user/login');
+    }
+    else if(c==="p"){
+      localStorage.removeItem('pharmaToken');
+      navigate('/pharma/login');
+    }
+    else if(c==="a"){
+      navigate('/admin/login');
+    }
+  }
   useEffect(() => {
     let x = location.pathname;
     let c = x.charAt(1);
-
+    let ch = x.charAt(5)
+    //console.log(x.length,ch);
     if (c === "u") {
       setType("user");
     } else if (c === "p") {
@@ -20,7 +37,7 @@ export const Navbar = (props) => {
       setType("");
     }
 
-    if (localStorage.getItem("token") || localStorage.getItem("pharmaToken")) {
+    if ((localStorage.getItem("token") && c=="u") || (localStorage.getItem("pharmaToken") && c=="p") || (ch=='n' && x.length==6)) {
       setLogin(true);
     } else {
       setLogin(false);
@@ -46,7 +63,7 @@ export const Navbar = (props) => {
         </button>
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          {type === "user" && (
+          {type === "user" && login && (
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
                 <Link
@@ -81,10 +98,21 @@ export const Navbar = (props) => {
                   Account Details
                 </Link>
               </li>
+              <li className="nav-item">
+                <Link
+                  className={`nav-link ${
+                    location.pathname === "/user/login" ? "active" : ""
+                  }`}
+                  to="/user/login"
+                  onClick = {Logout}
+                >
+                  Logout
+                </Link>
+              </li>
             </ul>
           )}
 
-          {type === "pharma" && (
+          {type === "pharma" && login && (
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
                 <Link
@@ -116,10 +144,21 @@ export const Navbar = (props) => {
                   Account Details
                 </Link>
               </li>
+               <li className="nav-item">
+                <Link
+                  className={`nav-link ${
+                    location.pathname === "/pharma/login" ? "active" : ""
+                  }`}
+                  to="/pharma/login"
+                  onClick = {Logout}
+                >
+                  Log out 
+                </Link>
+              </li>
             </ul>
           )}
 
-          {type === "admin" && (
+          {type === "admin" && login && (
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
                 <Link
@@ -138,6 +177,7 @@ export const Navbar = (props) => {
                   }`}
                   aria-current="page"
                   to="/admin/appointments"
+                  onClick = {Logout}
                 >
                   Appointments
                 </Link>
@@ -145,11 +185,11 @@ export const Navbar = (props) => {
               <li className="nav-item">
                 <Link
                   className={`nav-link ${
-                    location.pathname === "/admin/accdetails" ? "active" : ""
+                    location.pathname === "/admin/login" ? "active" : ""
                   }`}
-                  to="/admin/accdetails"
+                  to="/admin/login"
                 >
-                  Account Details
+                  Log out
                 </Link>
               </li>
             </ul>

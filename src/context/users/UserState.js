@@ -61,13 +61,13 @@ const UserState = (props) => {
         return res;
     }
 
-    const getIpfsPath = async(name, chronicConditions) => {
+    const getIpfsPath = async(name,filename,chronicConditions,medicalAllergies) => {
         const response = await fetch(`${host}/uploadfile`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({name, chronicConditions})
+            body: JSON.stringify({name,filename,chronicConditions,medicalAllergies})
         });
 
         const res = await response.json();
@@ -75,7 +75,7 @@ const UserState = (props) => {
     }
 
     return (
-        <UserContext.Provider value={{ user, myAppointments, login, getUser,bookAppointment, signup }}>
+        <UserContext.Provider value={{ user, myAppointments, login, getUser,bookAppointment, signup,getIpfsPath}}>
           {props.children}
         </UserContext.Provider>
     )

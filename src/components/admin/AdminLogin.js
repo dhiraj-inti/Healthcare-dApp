@@ -10,6 +10,8 @@ export const AdminLogin = (props) => {
     }
     else{
       navigate('/admin/login');
+      setCredentials({email:"",password:""})
+      alert("Enter correct credentials to Login !")
     }
   }
 

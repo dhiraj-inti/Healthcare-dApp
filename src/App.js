@@ -12,14 +12,15 @@ import {UserSignup} from "./components/user/UserSignup"
 import { UserLogin } from "./components/user/UserLogin";
 import { PharmaLogin } from "./components/pharmacist/PharmaLogin";
 import { AdminLogin } from "./components/admin/AdminLogin";
-import { AdminHome } from "./components/home/AdminHome";
+//import { AdminHome } from "./components/home/AdminHome";
+import {Home} from "./components/home/Home.js";
 import { BookAppointment } from "./components/user/BookAppointment";
 import { SellMedicine } from "./components/pharmacist/SellMedicine";
 import { AccountDetails } from "./components/AccountDetails";
-import { UserHome } from "./components/home/UserHome";
+//import { UserHome } from "./components/home/UserHome";
 import UserState from "./context/users/UserState";
 import PharmacistState from "./context/pharmscists/pharmacistState";
-import { PharmaHome } from "./components/home/PharmaHome";
+//import { PharmaHome } from "./components/home/PharmaHome";
 function App() {
   const ethereum = window.ethereum;
   let web3 = window.web3;
@@ -81,7 +82,7 @@ function App() {
             <div className="container">
               <Routes>
                 <Route exact path="/" element={<First />} />
-                <Route exact path="/user" element={<UserHome />} />
+                <Route exact path="/user" element={<Home type="user" s1="Book an Appointment" s2="View Appointments for the day" s3="View your Account Details"/>} />
 
                 <Route
                   exact
@@ -91,7 +92,7 @@ function App() {
                 <Route
                   exact
                   path="/user/login"
-                  element={<UserLogin name="user" />}
+                  element={<UserLogin name="User" />}
                 />
                 <Route
                   exact
@@ -109,9 +110,10 @@ function App() {
                   element={<AccountDetails type="user" account={account}/>}
                 />
 
-                <Route exact path="/pharma" element={<PharmaHome />} />
+                <Route exact path="/pharma" element={<Home type="pharma" s1="Create and Add Receipts to Sell Medicines" s2="View Drug Inventory" s3="View your Account Details
+"/>} />
 
-                <Route exact path="pharma/login" element={<PharmaLogin />} />
+                <Route exact path="pharma/login" element={<PharmaLogin name="Pharmacist"/>} />
 
                 <Route
                   exact
@@ -129,8 +131,8 @@ function App() {
                   element={<AccountDetails type="pharmacist" account={account}/>}
                 />
 
-                <Route exact path="admin" element={<AdminHome />} />
-                <Route exact path="admin/login" element={<AdminLogin />} />
+                <Route exact path="admin" element={<Home type="admin" s1="View Appointments for the day" s2="View Drug Inventory" s3="View your Account Details"/>} />
+                <Route exact path="admin/login" element={<AdminLogin name="Admin"/>} />
                 <Route
                   exact
                   path="admin/appointments"

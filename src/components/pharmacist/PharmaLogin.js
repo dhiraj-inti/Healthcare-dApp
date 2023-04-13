@@ -12,13 +12,12 @@ export const PharmaLogin = (props) => {
     async function init(){
       if(localStorage.getItem('pharmaToken')){
         const pharma = await getPharmacist(localStorage.getItem('pharmaToken'))
-        if(pharma._id){
-          navigate('/pharma')
+        if (pharma._id) {
+          navigate("/pharma");
+        } else {
+          navigate("/pharma/login");
         }
-        else{
-          navigate('/pharma/login')
-        }
-        console.log(pharma)
+        //console.log(pharma)
       }
     }
     init();
@@ -37,6 +36,8 @@ export const PharmaLogin = (props) => {
     }
     else{
       navigate('/pharma/login')
+      setCredentials({email:"",password:""})
+      alert("Enter correct credentials to Login !")
     }
 
   }

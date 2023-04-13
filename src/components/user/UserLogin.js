@@ -1,53 +1,51 @@
-import React, {useState, useContext, useEffect} from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import userContext from "../../context/users/userContext";
 export const UserLogin = (props) => {
   const navigate = useNavigate();
   const context = useContext(userContext);
-  const {login,getUser} = context;
+  const { login, getUser } = context;
   const [credentials, setCredentials] = useState({ email: "", password: "" });
   useEffect(() => {
-    async function init(){
-      if(localStorage.getItem('token')){
-        const user = await getUser(localStorage.getItem('token'));
-        if(user._id){
+    async function init() {
+      if (localStorage.getItem("token")) {
+        const user = await getUser(localStorage.getItem("token"));
+        if (user._id) {
           navigate("/user");
-        }
-        else{
+        } else {
           navigate("/user/login");
         }
-        
-        console.log(user)
+
+        console.log(user);
       }
     }
 
     init();
-  },[])
+  }, []);
+  const onClickSignup = (e) => {
+    navigate("/user/signup");
+  };
   const onChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
   const onSubmit = async (e) => {
     e.preventDefault();
     const response = await login(credentials.email, credentials.password);
-    
-    if(response.success){
+    if (response.success) {
       navigate("/user");
-      localStorage.setItem('token', response.authtoken)
+      localStorage.setItem("token", response.authtoken);
+    } else {
+      navigate("/user/login");
+      setCredentials({email:"",password:""})
+      alert("Enter correct credentials to Login !")
     }
-    else{
-      navigate("/user/login")
-    }
-    
   };
   return (
     <>
       <h2 style={{ justifyContent: "center", display: "flex" }}>
         Welcome, {props.name}
       </h2>
-      <form
-        style={{ position: "absolute", left: "40%" }}
-        onSubmit={onSubmit}
-      >
+      <form style={{ position: "absolute", left: "40%" }} onSubmit={onSubmit}>
         <div className="mb-3">
           <label htmlFor="exampleInputEmail1" className="form-label">
             Email address
@@ -78,9 +76,14 @@ export const UserLogin = (props) => {
             value={credentials.password}
           />
         </div>
-        <button type="submit" className="btn btn-primary">
-          Submit
-        </button>
+        <div style={{}}>
+          <button type="submit" className="btn btn-primary">
+            Submit
+          </button>
+          <div style={{ marginLeft: "10px" }} id="login" class="form-text">
+            New user? Click here to <u onClick={onClickSignup}>Sign up</u>
+          </div>
+        </div>
       </form>
     </>
   );

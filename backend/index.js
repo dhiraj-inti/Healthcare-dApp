@@ -23,7 +23,7 @@ app.use('/api/prescription/doctor', require('./routes/prescription'))
 app.use('/api/appointment/user', require('./routes/appointment'))
 app.post('/uploadfile',async (req,res)=>{
   const json = req.body;
-  const result = await uploadToIpfs(json,"myFile2");
+  const result = await uploadToIpfs(json,req.body.filename);
   res.send(result) 
 })
 

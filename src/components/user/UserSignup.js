@@ -4,7 +4,7 @@ import userContext from "../../context/users/userContext";
 export const UserSignup = (props) => {
   const navigate = useNavigate();
   const context = useContext(userContext);
-  //const { login, getUser } = context;
+  const {signup,getIpfsPath,getUser} = context;
   const [credentials, setCredentials] = useState({
     name: "",
     email: "",
@@ -14,31 +14,80 @@ export const UserSignup = (props) => {
     address: "",
     phoneNumber: "",
     chronicConditions:"",
-    medicalAllergies:""
+    medicalAllergies:"",
   });
+  useEffect(() => {
+    async function init(){
+        
+      if(localStorage.getItem('token')){
+        const user = await getUser(localStorage.getItem('token'));
+        if(user._id){
+          navigate("/user");
+        }
+        else{
+          navigate("/user/signup");
+        }
+        
+        //console.log(user)
+      }
+    }
+
+    init();
+  },[])
   const onChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
-  const onClickLogin = (e) => {
-    navigate("/user/login");
+  const dateValidation = () => {
+    var now = new Date();
+    if (credentials.dob > now.toJSON().slice(0, 10)) {
+      return false;
+    }
+    return true;
   };
   const onSubmit = async (e) => {
     e.preventDefault();
-    console.log(credentials)
+    //console.log(credentials)
     let isSubmit = true;
-    if(credentials.password===credentials.confirmPassword){
+    //password and confirm password fields should match
+    if(credentials.password===credentials.confirmPassword && credentials.password.length>=5){
         isSubmit=true;
     }
     else{
         alert("Passwords not matching.");
         isSubmit = false;
     }
-    /*if(isSubmit && //condition for successful signup){
-      navigate("/user/login");
+    //name should have atleast 3 characters
+    if(credentials.name.length<3){
+        alert("Name should have atleast 3 characters.");
+        isSubmit = false;
+    }
+    //date must be valid
+    const isDateValid = dateValidation();
+    if(!isDateValid){
+        isSubmit = false;
+        alert("Date of birth cannot be in the future.")
+    }
+    //phone number must have exactly 10 digits
+    if(credentials.phoneNumber.length!==10){
+        isSubmit = false;
+        alert("Phone number must have exactly 10 digits.")
+    }
+    if(isSubmit){
+        //preprocess name
+        const filename = credentials.name.replaceAll(" ","_");
+      const response1 = await getIpfsPath(credentials.name,filename,credentials.chronicConditions,credentials.medicalAllergies);
+      const path = response1[0].path
+      if(response1[0].path){
+        const response2 = await signup(credentials.name,credentials.email,credentials.password,credentials.dob,credentials.address,credentials.phoneNumber,path);
+        if(response2.success){
+            localStorage.setItem('token',response2.authtoken)
+            navigate("/user/login");
+        }
+      } 
     }
     else{
       navigate("/user/signup")
-    }*/
+    }
   };
   return (
     <>
@@ -115,7 +164,7 @@ export const UserSignup = (props) => {
                 type="date"
                 className="form-control"
                 id="DOB"
-                name="DOB"
+                name="dob"
                 style={{ width: "205px" }}
                 aria-describedby="emailHelp"
                 onChange={onChange}
@@ -177,15 +226,9 @@ export const UserSignup = (props) => {
             />
           </div>
         </div>
-        <div style={{ display: "flex", flexDirection: "row" }}>
           <button type="submit" className="btn btn-primary">
             Submit
           </button>
-          <div style={{ marginLeft: "10px" }} id="login" class="form-text">
-            Already signed up? Click here to{" "}
-              <u onClick={onClickLogin}>Login</u>
-          </div>
-        </div>
       </form>
     </>
   );
