@@ -35,7 +35,7 @@ export const UserLogin = (props) => {
       localStorage.setItem('token', response.authtoken)
     }
     else{
-      navigate("/userlogin")
+      navigate("/user/login")
     }
     
   };

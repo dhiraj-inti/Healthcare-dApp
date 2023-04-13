@@ -8,6 +8,7 @@ import AppointmentsDetail from "./components/user/AppointmentsDetail";
 import { DrugInventoryDetail } from "./components/pharmacist/DrugInventoryDetail";
 import { Navbar } from "./components/Navbar";
 import { First } from "./components/First";
+import {UserSignup} from "./components/user/UserSignup"
 import { UserLogin } from "./components/user/UserLogin";
 import { PharmaLogin } from "./components/pharmacist/PharmaLogin";
 import { AdminLogin } from "./components/admin/AdminLogin";
@@ -47,19 +48,18 @@ function App() {
           Appointments.abi,
           networkData.address
         );
+        setContract(t_contract);
         const d_contract = new web3.eth.Contract(
           DrugInventory.abi,
           networkDataDI.address
         );
+        //console.log(d_contract)
+        setDIContract(d_contract);
         const resp = await t_contract.methods.getAllAppointments().call();
         setResp(resp)
         
         const resp2 = await d_contract.methods.getAllReceipts().call()
-        console.log(resp2)
         setDrugRes(resp2)
-        d_contract.methods.addReceipt("Mary",2,3,[["P 650","2"]]).send({from:account}).then((receipt) =>{
-          console.log(receipt)
-      })
       } else if (web3) {
         web3 = new Web3(web3.currentProvider);
       } else {
@@ -85,6 +85,11 @@ function App() {
 
                 <Route
                   exact
+                  path="/user/signup"
+                  element={<UserSignup name="user" />}
+                />
+                <Route
+                  exact
                   path="/user/login"
                   element={<UserLogin name="user" />}
                 />
@@ -96,7 +101,7 @@ function App() {
                 <Route
                   exact
                   path="user/bookappointment"
-                  element={<BookAppointment />}
+                  element={<BookAppointment contract = {contract} account={account}/>}
                 />
                 <Route
                   exact
@@ -116,7 +121,7 @@ function App() {
                 <Route
                   exact
                   path="pharma/sellmedicine"
-                  element={<SellMedicine />}
+                  element={<SellMedicine contract = {DIContract} account={account}/>}
                 />
                 <Route
                   exact

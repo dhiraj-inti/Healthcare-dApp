@@ -2,7 +2,7 @@ import React from "react"
 
 const AppointmentsDetail = (props) => {
     const res = props.res;
-    console.log(res)
+    //console.log(res)
     return (
         <div>
             <h1>Appointments Details</h1>
@@ -20,7 +20,7 @@ const AppointmentsDetail = (props) => {
                 <tbody className="table-hover"> 
                 {res.map((ele,i) => {
                     return (
-                        <tr>
+                        <tr key={i}>
                             <th scope="row">{i+1}</th>
                             <td>{ele.patient}</td>
                             <td>{ele.doctor}</td>

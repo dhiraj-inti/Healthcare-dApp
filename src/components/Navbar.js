@@ -26,7 +26,6 @@ export const Navbar = (props) => {
       setLogin(false);
     }
 
-    console.log(c);
   }, [location]);
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
