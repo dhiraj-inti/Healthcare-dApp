@@ -12,6 +12,7 @@ export const BookAppointment = (props) => {
     date: "",
   });
   const [doctors, setDoctors] = useState([]);
+  const [Tommorowdate,setTommorowDate] = useState();
   const context = useContext(userContext);
   const contract = props.contract;
   const account = props.account;
@@ -27,11 +28,24 @@ export const BookAppointment = (props) => {
 
       const doctorArray = await resp.json();
       setDoctors(doctorArray);
-      console.log(doctorArray)
+      console.log(doctorArray);
     }
+    var currentDate = new Date();
+    currentDate.setDate(currentDate.getDate() + 1);
+    let dd = currentDate.getDate();
+    let mm = currentDate.getMonth();
+    let yyyy = currentDate.getFullYear();
+    if(dd<10){
+      dd = '0'+dd;
+    }
+    if(mm<10){
+      mm = '0'+mm;
+    }
+    setTommorowDate(`${dd}-${mm}-${yyyy}`)
 
     getAllDoctors();
   }, []);
+  
   const onSubmit = async (e) => {
     e.preventDefault();
     console.log(details);
@@ -75,114 +89,115 @@ export const BookAppointment = (props) => {
   };
   return (
     <>
-    <div style={{display:"flex",flexDirection:"row"}}>
-      <div>
-      <h1>Book an Appointment</h1>
-      <br></br>
-      <Form
-        onSubmit={onSubmit}
-        style={{ display: "flex", flexDirection: "column" }}
-        method="POST"
-      >
-        <Form.Group
-          style={{ display: "flex", flexDirection: "row" }}
-          className="mb-3"
-          controlId="doctor_patient_Details"
-        >
-          <div style={{ marginRight: "30px" }}>
-            <Form.Label>Doctor id</Form.Label>
-            <Form.Control
-              onChange={onChange}
-              type="text"
-              placeholder="Enter Doctor id"
-              name="doctorId"
-              value={details.doctorId}
-            />
-          </div>
-          <div style={{ marginRight: "30px" }}>
-            <Form.Label>Doctor name</Form.Label>
-            <Form.Control
-              onChange={onChange}
-              type="text"
-              placeholder="Enter Doctor name"
-              name="doctorName"
-              value={details.doctorName}
-            />
-          </div>
-        </Form.Group>
-        <Form.Group
-          style={{ display: "flex", flexDirection: "row" }}
-          className="mb-3"
-          controlId="doctor_patient_Details"
-        >
-          <div style={{ marginRight: "30px" }}>
-            <Form.Label>Patient name</Form.Label>
-            <Form.Control
-              onChange={onChange}
-              type="text"
-              placeholder="Enter Patient name"
-              name="patientName"
-              value={details.patientName}
-            />
-          </div>
-        </Form.Group>
-        <Form.Group
-          style={{ display: "flex", flexDirection: "row" }}
-          className="mb-3"
-          controlId="slotDetails"
-        >
-          <div style={{ marginRight: "30px" }}>
-            <Form.Label>Slot number</Form.Label>
-            <Form.Control
-              onChange={onChange}
-              type="text"
-              placeholder="Enter Slot number"
-              name="slotNo"
-              value={details.slotNo}
-            />
-          </div>
-          <div style={{ marginRight: "30px" }}>
-            <Form.Label>Date</Form.Label>
-            <Form.Control
-              onChange={onChange}
-              type="date"
-              placeholder="Enter date in dd-mm-yyyy"
-              name="date"
-              value={details.date}
-            />
-          </div>
-        </Form.Group>
-        <div style={{ marginRight: "30px" }}>
-          <Button variant="primary" type="submit">
-            Submit
-          </Button>
+      <div style={{ display: "flex", flexDirection: "row" }}>
+        <div>
+          <h1>Book an Appointment</h1>
+          <br></br>
+          <Form
+            onSubmit={onSubmit}
+            style={{ display: "flex", flexDirection: "column" }}
+            method="POST"
+          >
+            <Form.Group
+              style={{ display: "flex", flexDirection: "row" }}
+              className="mb-3"
+              controlId="doctor_patient_Details"
+            >
+              <div style={{ marginRight: "30px" }}>
+                <Form.Label>Doctor id</Form.Label>
+                <Form.Control
+                  onChange={onChange}
+                  type="text"
+                  placeholder="Enter Doctor id"
+                  name="doctorId"
+                  value={details.doctorId}
+                />
+              </div>
+              <div style={{ marginRight: "30px" }}>
+                <Form.Label>Doctor name</Form.Label>
+                <Form.Control
+                  onChange={onChange}
+                  type="text"
+                  placeholder="Enter Doctor name"
+                  name="doctorName"
+                  value={details.doctorName}
+                />
+              </div>
+            </Form.Group>
+            <Form.Group
+              style={{ display: "flex", flexDirection: "row" }}
+              className="mb-3"
+              controlId="doctor_patient_Details"
+            >
+              <div style={{ marginRight: "30px" }}>
+                <Form.Label>Patient name</Form.Label>
+                <Form.Control
+                  onChange={onChange}
+                  type="text"
+                  placeholder="Enter Patient name"
+                  name="patientName"
+                  value={details.patientName}
+                />
+              </div>
+            </Form.Group>
+            <Form.Group
+              style={{ display: "flex", flexDirection: "row" }}
+              className="mb-3"
+              controlId="slotDetails"
+            >
+              <div style={{ marginRight: "30px" }}>
+                <Form.Label>Slot number</Form.Label>
+                <Form.Control
+                  onChange={onChange}
+                  type="text"
+                  placeholder="Enter Slot number"
+                  name="slotNo"
+                  value={details.slotNo}
+                />
+              </div>
+              <div style={{ marginRight: "30px" }}>
+                <Form.Label>Date</Form.Label>
+                <Form.Control
+                  onChange={onChange}
+                  type="text"
+                  disabled="disabled"
+                  placeholder={Tommorowdate}
+                  name="date"
+                  value={details.date}
+                />
+              </div>
+            </Form.Group>
+            <div style={{ marginRight: "30px" }}>
+              <Button variant="primary" type="submit">
+                Submit
+              </Button>
+            </div>
+          </Form>
         </div>
-      </Form>
+        <div style={{ position: "absolute", left: "700px" }}>
+          <h1>Doctor Details</h1>
+          <table className="table table-info table-hover table-striped-columns">
+            <thead>
+              <tr>
+                <th scope="col">Doctor ID</th>
+                <th scope="col">Doctor Name</th>
+                <th scope="col">Specialization</th>
+              </tr>
+            </thead>
+            <tbody className="table-hover">
+              {doctors.map((ele, i) => {
+                return (
+                  <tr key={i}>
+                    <th scope="row">{i + 1}</th>
+                    <td>{ele.name}</td>
+                    <td>{ele.specialization}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       </div>
-      <div style={{position:"absolute", left:"700px"}}>
-        <h1>Doctor Details</h1>
-            <table className="table table-info table-hover table-striped-columns">
-                <thead>
-                    <tr>
-                        <th scope="col">Doctor ID</th>
-                        <th scope="col">Doctor Name</th>
-                        <th scope="col">Specialization</th>
-                    </tr>
-                </thead>
-                <tbody className="table-hover"> 
-                {doctors.map((ele,i) => {
-                    return (
-                        <tr key={i}>
-                            <th scope="row">{i+1}</th>
-                            <td>{ele.name}</td>
-                            <td>{ele.specialization}</td>
-                        </tr>
-                    )
-                })}
-                </tbody>
-            </table>
-      </div>
-    </div>
     </>
   );
 };
