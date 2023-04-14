@@ -1,7 +1,14 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 
 export const DrugInventoryDetail = (props) => {
-    const drugRes = props.drugRes;
+    const [drugRes, setDrugRes] = useState([])
+    useEffect(() => {
+        async function init() {
+            let x = await props.contract.methods.getAllReceipts().call();
+            setDrugRes(x);
+        }
+        init();
+    }, [])
     return (
         <div>
             <h1>Drug Inventory Details</h1>
@@ -24,8 +31,8 @@ export const DrugInventoryDetail = (props) => {
                                 <td>{ele.patientName}</td>
                                 <td>{ele.doctorId}</td>
                                 <td>{ele.pharmaId}</td>
-                                <td>{ele.medicines.map((item,j)=>{
-                                    return(
+                                <td>{ele.medicines.map((item, j) => {
+                                    return (
                                         <p key={ele.timestamp + j}>{item[0]} - {item[1]}</p>
                                     )
                                 })}</td>

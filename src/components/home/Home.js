@@ -1,35 +1,35 @@
 import React from "react";
-import { useContext,useEffect,useState} from "react";
+import { useContext, useEffect, useState } from "react";
 import userContext from '../../context/users/userContext';
 import PharmacistContext from "../../context/pharmscists/pharmacistContext";
 const Logo = require("../sastra_logo.png");
 export const Home = (props) => {
-    const UserContext = useContext(userContext);
-    const context = useContext(PharmacistContext)
-    const { getUser } = UserContext;
-    const {getPharmacist} = context;
-    const [name,setName] = useState(null);
-    useEffect (() => {
-        async function init(){
-            if (props.type === "user") {
-                const token = localStorage.getItem('token');
-                const user = await getUser(token);
-                setName(user.name);
-            }
-            else if(props.type === "pharma"){
-                const pharmaToken = localStorage.getItem('pharmaToken');
-                const pharma = await getPharmacist(pharmaToken);
-                setName(pharma.name);
-            }
-            else{
-                setName("Admin");
-            }
+  const UserContext = useContext(userContext);
+  const context = useContext(PharmacistContext)
+  const { getUser } = UserContext;
+  const { getPharmacist } = context;
+  const [name, setName] = useState(null);
+  useEffect(() => {
+    async function init() {
+      if (props.type === "user") {
+        const token = localStorage.getItem('token');
+        const user = await getUser(token);
+        setName(user.name);
+      }
+      else if (props.type === "pharma") {
+        const pharmaToken = localStorage.getItem('pharmaToken');
+        const pharma = await getPharmacist(pharmaToken);
+        setName(pharma.name);
+      }
+      else {
+        setName("Admin");
+      }
 
-        }
-        init()
-    },[])
-    return(
-        <>
+    }
+    init()
+  }, [])
+  return (
+    <>
       <div
         style={{
           display: "flex",
@@ -70,20 +70,20 @@ export const Home = (props) => {
           }}
         >
           <h3><b>Our Services</b></h3>
-      <ul style={{
-              marginBottom: "30px",
-              fontSize: "20px",
-              lineHeight: "1.5",
-              color: "#4D4D4D",
-              textAlign:"left",
-              marginLeft:"100px"
-            }}>
-        <li>{props.s1}</li>
-        <li>{props.s2}</li>
-        <li>{props.s3}</li>
-      </ul>
+          <ul style={{
+            marginBottom: "30px",
+            fontSize: "20px",
+            lineHeight: "1.5",
+            color: "#4D4D4D",
+            textAlign: "left",
+            marginLeft: "100px"
+          }}>
+            <li>{props.s1}</li>
+            <li>{props.s2}</li>
+            <li>{props.s3}</li>
+          </ul>
         </div>
       </div>
     </>
-    )
+  )
 }

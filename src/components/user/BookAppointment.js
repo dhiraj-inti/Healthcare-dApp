@@ -12,7 +12,7 @@ export const BookAppointment = (props) => {
     date: "",
   });
   const [doctors, setDoctors] = useState([]);
-  const [Tommorowdate,setTommorowDate] = useState();
+  const [Tommorowdate, setTommorowDate] = useState();
   const context = useContext(userContext);
   const contract = props.contract;
   const account = props.account;
@@ -28,30 +28,29 @@ export const BookAppointment = (props) => {
 
       const doctorArray = await resp.json();
       setDoctors(doctorArray);
-      console.log(doctorArray);
     }
     var currentDate = new Date();
     currentDate.setDate(currentDate.getDate() + 1);
     let dd = currentDate.getDate();
     let mm = currentDate.getMonth();
     let yyyy = currentDate.getFullYear();
-    if(dd<10){
-      dd = '0'+dd;
+    if (dd < 10) {
+      dd = '0' + dd;
     }
-    if(mm<10){
-      mm = '0'+mm;
+    if (mm < 10) {
+      mm = '0' + mm;
     }
     setTommorowDate(`${dd}-${mm}-${yyyy}`)
 
     getAllDoctors();
   }, []);
-  
+
   const onSubmit = async (e) => {
     e.preventDefault();
-    console.log(details);
+
     let isSubmit = true;
     const isDateValid = dateValidation();
-    //console.log(isDateValid);
+
     if (!isDateValid) {
       alert("Date cannot be in the past.");
       isSubmit = false;
@@ -59,7 +58,6 @@ export const BookAppointment = (props) => {
     // bookAppointment(details.patientName,details.doctorName, details.slotNo, details.date);
     if (isSubmit) {
       try {
-        //console.log(parseInt(details.doctorId));
         const hash = await contract.methods
           .addToBlockchain(
             details.patientName,
@@ -69,7 +67,6 @@ export const BookAppointment = (props) => {
             details.date
           )
           .send({ from: account });
-        console.log(hash);
         alert("Appointment booked successfully !");
       } catch (error) {
         alert("Slot already filled");
@@ -81,7 +78,6 @@ export const BookAppointment = (props) => {
   };
   const dateValidation = () => {
     var now = new Date();
-    //console.log(now.toJSON().slice(0, 10));
     if (details.date <= now.toJSON().slice(0, 10)) {
       return false;
     }

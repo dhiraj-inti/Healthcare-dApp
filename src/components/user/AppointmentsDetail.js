@@ -1,7 +1,14 @@
-import React from "react"
+import React, { useEffect,useState } from "react"
 
 const AppointmentsDetail = (props) => {
-    const res = props.res;
+    const [res,setRes] = useState([])
+    useEffect(()=>{
+        async function init(){
+            let x = await props.contract.methods.getAllAppointments().call();
+            setRes(x);
+        }
+        init();
+    },[])
     //console.log(res)
     return (
         <div>

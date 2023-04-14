@@ -4,36 +4,34 @@ import userContext from "../../context/users/userContext";
 export const UserSignup = (props) => {
   const navigate = useNavigate();
   const context = useContext(userContext);
-  const {signup,getIpfsPath,getUser} = context;
+  const { signup, getIpfsPath, getUser } = context;
   const [credentials, setCredentials] = useState({
     name: "",
     email: "",
     password: "",
-    confirmPassword:"",
+    confirmPassword: "",
     dob: "",
     address: "",
     phoneNumber: "",
-    chronicConditions:"",
-    medicalAllergies:"",
+    chronicConditions: "",
+    medicalAllergies: "",
   });
   useEffect(() => {
-    async function init(){
-        
-      if(localStorage.getItem('token')){
+    async function init() {
+
+      if (localStorage.getItem('token')) {
         const user = await getUser(localStorage.getItem('token'));
-        if(user._id){
+        if (user._id) {
           navigate("/user");
         }
-        else{
+        else {
           navigate("/user/signup");
         }
-        
-        //console.log(user)
       }
     }
 
     init();
-  },[])
+  }, [])
   const onChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
@@ -46,46 +44,45 @@ export const UserSignup = (props) => {
   };
   const onSubmit = async (e) => {
     e.preventDefault();
-    //console.log(credentials)
     let isSubmit = true;
     //password and confirm password fields should match
-    if(credentials.password===credentials.confirmPassword && credentials.password.length>=5){
-        isSubmit=true;
+    if (credentials.password === credentials.confirmPassword && credentials.password.length >= 5) {
+      isSubmit = true;
     }
-    else{
-        alert("Passwords not matching.");
-        isSubmit = false;
+    else {
+      alert("Passwords not matching.");
+      isSubmit = false;
     }
     //name should have atleast 3 characters
-    if(credentials.name.length<3){
-        alert("Name should have atleast 3 characters.");
-        isSubmit = false;
+    if (credentials.name.length < 3) {
+      alert("Name should have atleast 3 characters.");
+      isSubmit = false;
     }
     //date must be valid
     const isDateValid = dateValidation();
-    if(!isDateValid){
-        isSubmit = false;
-        alert("Date of birth cannot be in the future.")
+    if (!isDateValid) {
+      isSubmit = false;
+      alert("Date of birth cannot be in the future.")
     }
     //phone number must have exactly 10 digits
-    if(credentials.phoneNumber.length!==10){
-        isSubmit = false;
-        alert("Phone number must have exactly 10 digits.")
+    if (credentials.phoneNumber.length !== 10) {
+      isSubmit = false;
+      alert("Phone number must have exactly 10 digits.")
     }
-    if(isSubmit){
-        //preprocess name
-        const filename = credentials.name.replaceAll(" ","_");
-      const response1 = await getIpfsPath(credentials.name,filename,credentials.chronicConditions,credentials.medicalAllergies);
+    if (isSubmit) {
+      //preprocess name
+      const filename = credentials.name.replaceAll(" ", "_");
+      const response1 = await getIpfsPath(credentials.name, filename, credentials.chronicConditions, credentials.medicalAllergies);
       const path = response1[0].path
-      if(response1[0].path){
-        const response2 = await signup(credentials.name,credentials.email,credentials.password,credentials.dob,credentials.address,credentials.phoneNumber,path);
-        if(response2.success){
-            localStorage.setItem('token',response2.authtoken)
-            navigate("/user/login");
+      if (response1[0].path) {
+        const response2 = await signup(credentials.name, credentials.email, credentials.password, credentials.dob, credentials.address, credentials.phoneNumber, path);
+        if (response2.success) {
+          localStorage.setItem('token', response2.authtoken)
+          navigate("/user/login");
         }
-      } 
+      }
     }
-    else{
+    else {
       navigate("/user/signup")
     }
   };
@@ -226,9 +223,9 @@ export const UserSignup = (props) => {
             />
           </div>
         </div>
-          <button type="submit" className="btn btn-primary">
-            Submit
-          </button>
+        <button type="submit" className="btn btn-primary">
+          Submit
+        </button>
       </form>
     </>
   );

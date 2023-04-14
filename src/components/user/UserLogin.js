@@ -15,8 +15,6 @@ export const UserLogin = (props) => {
         } else {
           navigate("/user/login");
         }
-
-        console.log(user);
       }
     }
 
@@ -36,7 +34,7 @@ export const UserLogin = (props) => {
       localStorage.setItem("token", response.authtoken);
     } else {
       navigate("/user/login");
-      setCredentials({email:"",password:""})
+      setCredentials({ email: "", password: "" })
       alert("Enter correct credentials to Login !")
     }
   };
@@ -80,7 +78,7 @@ export const UserLogin = (props) => {
           <button type="submit" className="btn btn-primary">
             Submit
           </button>
-          <div style={{ marginLeft: "10px" }} id="login" class="form-text">
+          <div style={{ marginLeft: "10px" }} id="login" className="form-text">
             New user? Click here to <u onClick={onClickSignup}>Sign up</u>
           </div>
         </div>

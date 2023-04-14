@@ -1,16 +1,16 @@
-import React ,{useState} from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 export const AdminLogin = (props) => {
-  const [credentials, setCredentials] = useState({email:"",password:""});
+  const [credentials, setCredentials] = useState({ email: "", password: "" });
   const navigate = useNavigate();
   const onSubmit = async (e) => {
     e.preventDefault();
-    if(credentials.email==="admin@healthcaredapp.com" && credentials.password==="dappassword"){
+    if (credentials.email === "admin@healthcaredapp.com" && credentials.password === "dappassword") {
       navigate('/admin');
     }
-    else{
+    else {
       navigate('/admin/login');
-      setCredentials({email:"",password:""})
+      setCredentials({ email: "", password: "" })
       alert("Enter correct credentials to Login !")
     }
   }
@@ -18,8 +18,8 @@ export const AdminLogin = (props) => {
   const onChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
-    
-  
+
+
   return (
     <>
       <h2 style={{ justifyContent: "center", display: "flex" }}>

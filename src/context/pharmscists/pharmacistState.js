@@ -12,13 +12,13 @@ const PharmacistState = (props) => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({email, password})
+            body: JSON.stringify({ email, password })
         });
-        localStorage.setItem('pharmaToken',response.authtoken);
+        localStorage.setItem('pharmaToken', response.authtoken);
         const res = await response.json();
         return res;
     }
-    
+
     const getPharmacist = async (pharmaToken) => {
         const response = await fetch(`${host}/api/auth/pharmacist/getpharmacist`, {
             method: 'POST',
@@ -39,7 +39,7 @@ const PharmacistState = (props) => {
             headers: {
                 'auth-token': localStorage.getItem('pharmaToken')
             },
-            body: JSON.stringify({doctorId, doctorName, patientId, patientName, slotNo, date, description})
+            body: JSON.stringify({ doctorId, doctorName, patientId, patientName, slotNo, date, description })
         })
         const res = await response.json();
         myReceipts.push(res.prescription);
@@ -50,7 +50,7 @@ const PharmacistState = (props) => {
 
     return (
         <PharmacistContext.Provider value={{ pharmacist, myReceipts, login, getPharmacist, generateReceipt }}>
-          {props.children}
+            {props.children}
         </PharmacistContext.Provider>
     )
 }
