@@ -107,7 +107,7 @@ function App() {
                 <Route
                   exact
                   path="user/accdetails"
-                  element={<AccountDetails type="user" account={account} />}
+                  element={<AccountDetails type="user" />}
                 />
 
                 <Route exact path="/pharma" element={<Home type="pharma" s1="Create and Add Receipts to Sell Medicines" s2="View Drug Inventory" s3="View your Account Details
@@ -128,7 +128,7 @@ function App() {
                 <Route
                   exact
                   path="pharma/accdetails"
-                  element={<AccountDetails type="pharmacist" account={account} />}
+                  element={<AccountDetails type="pharmacist" />}
                 />
 
                 <Route exact path="admin" element={<Home type="admin" s1="View Appointments for the day" s2="View Drug Inventory" s3="View your Account Details" />} />
@@ -146,7 +146,7 @@ function App() {
                 <Route
                   exact
                   path="admin/accdetails"
-                  element={<AccountDetails type="admin" account={account} />}
+                  element={<AccountDetails type="admin" />}
                 />
               </Routes>
             </div>

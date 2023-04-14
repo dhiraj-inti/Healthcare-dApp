@@ -2,7 +2,6 @@ import React, { useState, useContext, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import userContext from "../../context/users/userContext";
-import Web3 from "web3";
 export const BookAppointment = (props) => {
   const [details, setDetails] = useState({
     doctorId: "",
@@ -32,7 +31,7 @@ export const BookAppointment = (props) => {
     var currentDate = new Date();
     currentDate.setDate(currentDate.getDate() + 1);
     let dd = currentDate.getDate();
-    let mm = currentDate.getMonth();
+    let mm = currentDate.getMonth() + 1;
     let yyyy = currentDate.getFullYear();
     if (dd < 10) {
       dd = '0' + dd;
@@ -57,6 +56,7 @@ export const BookAppointment = (props) => {
     }
     // bookAppointment(details.patientName,details.doctorName, details.slotNo, details.date);
     if (isSubmit) {
+      details.date = Tommorowdate;
       try {
         const hash = await contract.methods
           .addToBlockchain(
@@ -78,7 +78,7 @@ export const BookAppointment = (props) => {
   };
   const dateValidation = () => {
     var now = new Date();
-    if (details.date <= now.toJSON().slice(0, 10)) {
+    if (details.date == now.toJSON().slice(0, 10) + 1) {
       return false;
     }
     return true;
@@ -159,7 +159,7 @@ export const BookAppointment = (props) => {
                   disabled="disabled"
                   placeholder={Tommorowdate}
                   name="date"
-                  value={details.date}
+                  value={Tommorowdate}
                 />
               </div>
             </Form.Group>

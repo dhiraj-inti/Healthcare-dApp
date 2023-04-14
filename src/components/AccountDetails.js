@@ -2,44 +2,54 @@ import Table from 'react-bootstrap/Table';
 import userContext from '../context/users/userContext';
 import React, { useContext, useState, useEffect } from 'react';
 import PharmacistContext from '../context/pharmscists/pharmacistContext';
+import Web3 from "web3";
 
 export const AccountDetails = (props) => {
   const [details, setDetails] = useState(null);
   const UserContext = useContext(userContext);
   const PharmaContext = useContext(PharmacistContext);
-
   const { getUser } = UserContext;
   const { getPharmacist } = PharmaContext;
+  let web3 = window.web3;
+  const ethereum = window.ethereum;
+  const [acc,setacc] = useState([])
 
   useEffect(() => {
+
+
+    async function loadBlockchainData() {
+      web3 = new Web3(ethereum);
+      setacc(await web3.eth.getAccounts())
+    }
 
     async function init() {
       let json = {}
       if (props.type === "user") {
         const token = localStorage.getItem('token');
         json = await getUser(token);
-        json.Account = props.account;
+        // json.Account = acc[0];
         setDetails(json);
       }
       else if (props.type === "pharmacist") {
         const token = localStorage.getItem('pharmaToken');
         json = await getPharmacist(token);
-        json.Account = props.account
+        // json.Account = acc[0];
         setDetails(json);
       }
       else {
         json = {
           name: "Admin",
           email: "admin@healthcareDapp.com",
-          phoneNumber: "888889000",
-          Account: props.account
+          phoneNumber: "888889000"
         }
+        // json.Account = acc[0];
+        console.log(json)
         setDetails(json)
-
       }
       
 
     }
+    loadBlockchainData()
     init()
 
 
@@ -75,7 +85,7 @@ export const AccountDetails = (props) => {
             </tr>
             <tr>
               <td ><b>Account Address</b></td>
-              <td>{details.Account}</td>
+              <td>{acc[0]}</td>
             </tr>
           </tbody>}
           {details!==null && props.type==="admin" && <tbody>
@@ -93,7 +103,7 @@ export const AccountDetails = (props) => {
             </tr>
             <tr>
               <td ><b>Account Address</b></td>
-              <td>{details.Account}</td>
+              <td>{acc[0]}</td>
             </tr>
           </tbody>}
         </Table>
