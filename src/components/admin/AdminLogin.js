@@ -42,9 +42,6 @@ export const AdminLogin = (props) => {
             onChange={onChange}
             value={credentials.email}
           />
-          <div id="emailHelp" className="form-text">
-            We'll never share your email with anyone else.
-          </div>
         </div>
         <div className="mb-3">
           <label htmlFor="exampleInputPassword1" className="form-label">

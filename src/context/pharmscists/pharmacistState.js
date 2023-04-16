@@ -14,7 +14,6 @@ const PharmacistState = (props) => {
             },
             body: JSON.stringify({ email, password })
         });
-        localStorage.setItem('pharmaToken', response.authtoken);
         const res = await response.json();
         return res;
     }
