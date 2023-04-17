@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import userContext from "../../context/users/userContext";
+import Web3 from "web3";
 export const BookAppointment = (props) => {
   const [details, setDetails] = useState({
     doctorId: "",
@@ -14,9 +15,18 @@ export const BookAppointment = (props) => {
   const [Tommorowdate, setTommorowDate] = useState();
   const context = useContext(userContext);
   const contract = props.contract;
-  const account = props.account;
+  let web3 = window.web3;
+  const ethereum = window.ethereum;
+  const [account,setacc] = useState([])
+
   const { bookAppointment } = context;
   useEffect(() => {
+    async function loadBlockchainData() {
+      web3 = new Web3(ethereum);
+      let x = await web3.eth.getAccounts();
+      setacc(x)
+    }
+
     async function getAllDoctors() {
       const resp = await fetch(
         "http://localhost:5000/api/auth/doctor/getalldoctors",
@@ -40,7 +50,7 @@ export const BookAppointment = (props) => {
       mm = '0' + mm;
     }
     setTommorowDate(`${dd}-${mm}-${yyyy}`)
-
+    loadBlockchainData()
     getAllDoctors();
   }, []);
 
@@ -66,7 +76,7 @@ export const BookAppointment = (props) => {
             details.slotNo,
             details.date
           )
-          .send({ from: account });
+          .send({ from: account[0] });
         alert("Appointment booked successfully !");
       } catch (error) {
         alert("Slot already filled");

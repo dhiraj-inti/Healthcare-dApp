@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import PharmacistContext from "../../context/pharmscists/pharmacistContext";
+import Web3 from "web3";
 
 export const SellMedicine = (props) => {
   const [details, setDetails] = useState({
@@ -18,9 +19,18 @@ export const SellMedicine = (props) => {
   const context = useContext(PharmacistContext);
   const { generateReceipt } = context;
   const contract = props.contract;
-  const account = props.account;
+
+  let web3 = window.web3;
+  const ethereum = window.ethereum;
+  const [account,setacc] = useState([])
   const [doctors, setDoctors] = useState([]);
   useEffect(() => {
+    async function loadBlockchainData() {
+      web3 = new Web3(ethereum);
+      let x = await web3.eth.getAccounts();
+      setacc(x)
+    }
+
     async function getAllDoctors() {
       const resp = await fetch(
         "http://localhost:5000/api/auth/doctor/getalldoctors",
@@ -34,6 +44,7 @@ export const SellMedicine = (props) => {
     }
 
     getAllDoctors();
+    loadBlockchainData();
   }, []);
   const onChange = (e) => {
     setDetails({ ...details, [e.target.name]: e.target.value });
@@ -62,7 +73,7 @@ export const SellMedicine = (props) => {
             description,
             details.date
           )
-          .send({ from: account });
+          .send({ from: account[0] });
         alert("Receipt added successfully !");
       } catch (error) {
         alert('Enter all the details');
