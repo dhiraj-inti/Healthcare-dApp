@@ -3,7 +3,7 @@
 # dependencies
 /node_modules
 /backend/node_modules
-/backend/.env
+/.env
 /smart_contracts/node_modules
 /smart_contracts/build
 /src/abi

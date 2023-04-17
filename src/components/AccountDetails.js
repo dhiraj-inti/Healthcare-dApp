@@ -19,7 +19,8 @@ export const AccountDetails = (props) => {
 
     async function loadBlockchainData() {
       web3 = new Web3(ethereum);
-      setacc(await web3.eth.getAccounts())
+      let x = await web3.eth.getAccounts();
+      setacc(x)
     }
 
     async function init() {
@@ -42,8 +43,6 @@ export const AccountDetails = (props) => {
           email: "admin@healthcareDapp.com",
           phoneNumber: "888889000"
         }
-        // json.Account = acc[0];
-        console.log(json)
         setDetails(json)
       }
       
