@@ -22,6 +22,7 @@ const AppointmentsDetail = (props) => {
                         {props.type==="admin" && <th scope="col">Doctor ID</th>}
                         <th scope="col">Slot Number</th>
                         <th scope="col">Date</th>
+                        <th scope="col">Timestamp</th>
                     </tr>
                 </thead>
                 <tbody className="table-hover"> 
@@ -34,6 +35,7 @@ const AppointmentsDetail = (props) => {
                             {props.type==="admin" && <td scope="col">{ele.doctorNo}</td>}
                             <td>{ele.slotNo}</td>
                             <td>{ele.date}</td>
+                            <td>{ele.timestamp}</td>
                         </tr>
                     )
                 })}

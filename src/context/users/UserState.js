@@ -2,7 +2,7 @@ import { useState } from "react";
 import UserContext from "./userContext";
 
 const UserState = (props) => {
-    const host = "http://localhost:5000";
+    const host = "http://172.22.62.194:5000";
     const [user, setUser] = useState(null);
     const [myAppointments, setMyAppointments] = useState([])
 

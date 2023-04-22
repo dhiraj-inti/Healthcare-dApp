@@ -21,6 +21,7 @@ export const DrugInventoryDetail = (props) => {
                         <th scope="col">Pharmacist ID</th>
                         <th scope="col">Medicines</th>
                         <th scope="col">Date</th>
+                        <th scope="col">Timestamp</th>
                     </tr>
                 </thead>
                 <tbody className="table-hover">
@@ -37,6 +38,7 @@ export const DrugInventoryDetail = (props) => {
                                     )
                                 })}</td>
                                 <td>{ele.date}</td>
+                                <td>{ele.timestamp}</td>
                             </tr>
                         )
                     })}
