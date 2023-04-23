@@ -80,6 +80,17 @@ export const Navbar = () => {
               </li>
               <li className="nav-item">
                 <Link
+                  className={`nav-link ${location.pathname === "/user/viewbyrfid"
+                      ? "active"
+                      : ""
+                    }`}
+                  to="/user/viewbyrfid"
+                >
+                  View by RFID
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link
                   className={`nav-link ${location.pathname === "/user/appointments" ? "active" : ""
                     }`}
                   to="/user/appointments"
@@ -127,6 +138,15 @@ export const Navbar = () => {
                   to="/pharma/druginv"
                 >
                   Drug Inventory
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link
+                  className={`nav-link ${location.pathname === "/pharma/viewmed" ? "active" : ""
+                    }`}
+                  to="/pharma/viewmed"
+                >
+                  Medicine Details
                 </Link>
               </li>
               <li className="nav-item">

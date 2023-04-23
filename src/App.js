@@ -20,6 +20,8 @@ import { AccountDetails } from "./components/AccountDetails";
 //import { UserHome } from "./components/home/UserHome";
 import UserState from "./context/users/UserState";
 import PharmacistState from "./context/pharmscists/pharmacistState";
+import { MedicineDetail } from "./components/pharmacist/MedicineDetail";
+import { SearchByRfid } from "./components/user/SearchByRfid";
 //import { PharmaHome } from "./components/home/PharmaHome";
 function App() {
   const ethereum = window.ethereum;
@@ -105,6 +107,10 @@ function App() {
                   element={<BookAppointment contract={contract} account={account} />}
                 />
                 <Route
+                  exact path="user/viewbyrfid"
+                  element={<SearchByRfid contract={DIContract}/>}
+                 /> 
+                <Route
                   exact
                   path="user/accdetails"
                   element={<AccountDetails type="user" />}
@@ -119,6 +125,10 @@ function App() {
                   exact
                   path="pharma/druginv"
                   element={<DrugInventoryDetail contract={DIContract} />}
+                />
+                <Route
+                  exact path="pharma/viewmed"
+                  element={<MedicineDetail contract={DIContract} />}
                 />
                 <Route
                   exact

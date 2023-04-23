@@ -8,6 +8,7 @@ contract Appointments {
     uint doctorsCount;
     uint slotsCount;
     struct Appointment {
+        address sender;
         string patient;
         string doctor;
         uint slotNo;
@@ -16,7 +17,7 @@ contract Appointments {
         uint256 timestamp;
     }
 
-    event bookAppointment(string patient, string doctor, uint doctorNo, uint slotNo, string date, uint256 timestamp);
+    event bookAppointment(address sender,string patient, string doctor, uint doctorNo, uint slotNo, string date, uint256 timestamp);
 
     Appointment[] appointments;
 
@@ -38,9 +39,9 @@ contract Appointments {
         require(slotsFilled[doctorNo-1][slotNo-1]==false,"Slot already filled");
         bookingsCounter+=1;
         slotsFilled[doctorNo-1][slotNo-1]=true;
-        appointments.push(Appointment(patient, doctor, slotNo, doctorNo, date, block.timestamp));
+        appointments.push(Appointment(msg.sender,patient, doctor, slotNo, doctorNo, date, block.timestamp));
 
-        emit bookAppointment(patient, doctor, doctorNo, slotNo, date, block.timestamp);
+        emit bookAppointment(msg.sender,patient, doctor, doctorNo, slotNo, date, block.timestamp);
     } 
 
     function getAllAppointments() public view returns (Appointment[] memory) {
