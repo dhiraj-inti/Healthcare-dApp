@@ -17,13 +17,14 @@ export const SellMedicine = (props) => {
     description: "",
   });
   const context = useContext(PharmacistContext);
-  const { generateReceipt } = context;
+  const { generateReceipt, getPharmacist } = context;
   const contract = props.contract;
 
   let web3 = window.web3;
   const ethereum = window.ethereum;
   const [account,setacc] = useState([])
   const [doctors, setDoctors] = useState([]);
+  const [Todaydate, setTodayDate] = useState();
   useEffect(() => {
     async function loadBlockchainData() {
       web3 = new Web3(ethereum);
@@ -43,20 +44,34 @@ export const SellMedicine = (props) => {
       setDoctors(doctorArray);
     }
 
+    var currentDate = new Date();
+    currentDate.setDate(currentDate.getDate());
+    let dd = currentDate.getDate();
+    let mm = currentDate.getMonth() + 1;
+    let yyyy = currentDate.getFullYear();
+    if (dd < 10) {
+      dd = '0' + dd;
+    }
+    if (mm < 10) {
+      mm = '0' + mm;
+    }
+
     getAllDoctors();
     loadBlockchainData();
+    setTodayDate(`${dd}-${mm}-${yyyy}`)
   }, []);
   const onChange = (e) => {
     setDetails({ ...details, [e.target.name]: e.target.value });
   };
   const onSubmit = async (e) => {
     let isSubmit = true;
+    console.log(details)
     e.preventDefault();
-    const isDateValid = dateValidation();
-    if (!isDateValid) {
-      alert("Date cannot be in the future, re enter the date.");
-      isSubmit = false;
-    }
+    // const isDateValid = dateValidation();
+    // if (!isDateValid) {
+    //   alert("Date cannot be in the future, re enter the date.");
+    //   isSubmit = false;
+    // }
     //generateReceipt(details.doctorName,details.patientName,details.slotNo,details.date,details.description);
     if (isSubmit) {
       const description = details.description.split("\n");
@@ -68,14 +83,15 @@ export const SellMedicine = (props) => {
         const hash = await contract.methods
           .addReceipt(
             details.patientName,
-            details.doctorId,
+            parseInt(details.doctorId),
             details.pharmaId,
             description,
-            details.date
+            Todaydate
           )
           .send({ from: account[0] });
         alert("Receipt added successfully !");
       } catch (error) {
+        console.log(error)
         alert('Enter all the details');
       }
     }
@@ -105,14 +121,20 @@ export const SellMedicine = (props) => {
               <div style={{ marginRight: "30px" }}>
                 <Form.Label>Doctor id</Form.Label>
                 <Form.Control
-                  type="text"
-                  placeholder="Enter Doctor id"
                   onChange={onChange}
+                  as="select"
                   name="doctorId"
                   value={details.doctorId}
-                />
+                >
+                  {doctors.map((ele,i)=>{
+                    return(
+                      <option key={i} value={i+1}>{i+1}</option>
+                    )
+                  })}
+                  
+                </Form.Control>
               </div>
-              <div style={{ marginRight: "30px" }}>
+              {/* <div style={{ marginRight: "30px" }}>
                 <Form.Label>Doctor name</Form.Label>
                 <Form.Control
                   type="text"
@@ -121,7 +143,7 @@ export const SellMedicine = (props) => {
                   name="doctorName"
                   value={details.doctorName}
                 />
-              </div>
+              </div> */}
             </Form.Group>
             <Form.Group
               style={{ display: "flex", flexDirection: "row" }}
@@ -138,7 +160,7 @@ export const SellMedicine = (props) => {
                   value={details.pharmaId}
                 />
               </div>
-              <div style={{ marginRight: "30px" }}>
+              {/* <div style={{ marginRight: "30px" }}>
                 <Form.Label>Pharmacist name</Form.Label>
                 <Form.Control
                   type="text"
@@ -147,14 +169,14 @@ export const SellMedicine = (props) => {
                   name="pharmaName"
                   value={details.pharmaName}
                 />
-              </div>
+              </div> */}
             </Form.Group>
             <Form.Group
               style={{ display: "flex", flexDirection: "row" }}
               className="mb-3"
               controlId="patient_Details"
             >
-              <div style={{ marginRight: "30px" }}>
+              {/* <div style={{ marginRight: "30px" }}>
                 <Form.Label>Patient id</Form.Label>
                 <Form.Control
                   type="text"
@@ -163,7 +185,7 @@ export const SellMedicine = (props) => {
                   name="patientId"
                   value={details.patientId}
                 />
-              </div>
+              </div> */}
               <div style={{ marginRight: "30px" }}>
                 <Form.Label>Patient name</Form.Label>
                 <Form.Control
@@ -175,7 +197,7 @@ export const SellMedicine = (props) => {
                 />
               </div>
             </Form.Group>
-            <Form.Group
+            {/* <Form.Group
               style={{ display: "flex", flexDirection: "row" }}
               className="mb-3"
               controlId="slotDetails"
@@ -190,17 +212,8 @@ export const SellMedicine = (props) => {
                   value={details.slotNo}
                 />
               </div>
-              <div style={{ marginRight: "30px" }}>
-                <Form.Label>Date</Form.Label>
-                <Form.Control
-                  type="date"
-                  placeholder="Enter date in dd-mm-yyyy"
-                  onChange={onChange}
-                  name="date"
-                  value={details.date}
-                />
-              </div>
-            </Form.Group>
+              
+            </Form.Group> */}
             <Form.Group>
               <div style={{ marginRight: "30px" }}>
                 <Form.Label>Enter Description</Form.Label>
