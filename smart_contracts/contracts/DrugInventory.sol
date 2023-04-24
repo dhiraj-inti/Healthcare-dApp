@@ -61,6 +61,7 @@ contract DrugInventory {
             for(uint j=0; j<_medicines.length; j++) {
                 if(medicines[i].rfid == stringToUint(_medicines[j][0])){
                     require(medicines[i].qty >= stringToUint(_medicines[j][1]),"Insufficient quantity available");
+                    medicines[i].qty -= stringToUint(_medicines[j][1]);
                 }
             }
         }

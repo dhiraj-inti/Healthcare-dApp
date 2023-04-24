@@ -3,7 +3,7 @@ import Web3 from "web3";
 
 export const SearchByRfid = (props) => {
     const [medRes, setMedRes] = useState([]);
-    const [med, setMed] = useState(null)
+    const [med, setMed] = useState("")
     const [rfid,setRfid] = useState("");
     let web3 = window.web3;
     const ethereum = window.ethereum;
@@ -34,7 +34,7 @@ export const SearchByRfid = (props) => {
         }
 
         if(!found){
-            setMed(null)
+            setMed("")
         }
     }
     const onChange = (e)=>{
@@ -51,7 +51,7 @@ export const SearchByRfid = (props) => {
 
                 <button type="submit" className="btn btn-primary">Submit</button>
             </form>
-            <table className="table table-info table-hover table-striped-columns">
+            {med && <table className="table table-info table-hover table-striped-columns">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -69,7 +69,7 @@ export const SearchByRfid = (props) => {
                 </thead>
                 <tbody className="table-hover">
                     
-                    {med && <tr key={100}>
+                    <tr key={100}>
                         <th scope="row">1</th>
                         <td>{med.sender}</td>
                         <td>{med.rfid}</td>
@@ -81,10 +81,11 @@ export const SearchByRfid = (props) => {
                         <td>{med.expiryDate}</td>
                         <td>{med.blockNo}</td>
                         <td>{med.timestamp}</td>
-                    </tr>}
+                    </tr>
                         
                 </tbody>
-            </table>
+            </table>}
+            {med==="" && "No results found!"}
         </div>
     );
 }

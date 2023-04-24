@@ -19,7 +19,7 @@ export const BookAppointment = (props) => {
   const ethereum = window.ethereum;
   const [account,setacc] = useState([])
 
-  const { bookAppointment } = context;
+  const { bookAppointment,getUser } = context;
   useEffect(() => {
     async function loadBlockchainData() {
       web3 = new Web3(ethereum);
@@ -68,13 +68,14 @@ export const BookAppointment = (props) => {
     if (isSubmit) {
       details.date = Tommorowdate;
       try {
+        const user = await getUser(localStorage.getItem('token'))
         const hash = await contract.methods
           .addToBlockchain(
-            details.patientName,
-            details.doctorName,
+            user.name,
+            doctors[parseInt(details.doctorId)-1].name,
             parseInt(details.doctorId),
             details.slotNo,
-            details.date
+            Tommorowdate
           )
           .send({ from: account[0] });
         alert("Appointment booked successfully !");
@@ -113,21 +114,18 @@ export const BookAppointment = (props) => {
                 <Form.Label>Doctor id</Form.Label>
                 <Form.Control
                   onChange={onChange}
-                  type="text"
-                  placeholder="Enter Doctor id"
+                  as="select"
+                  placeholder="Select Doctor id"
                   name="doctorId"
                   value={details.doctorId}
-                />
-              </div>
-              <div style={{ marginRight: "30px" }}>
-                <Form.Label>Doctor name</Form.Label>
-                <Form.Control
-                  onChange={onChange}
-                  type="text"
-                  placeholder="Enter Doctor name"
-                  name="doctorName"
-                  value={details.doctorName}
-                />
+                >
+                  {doctors.map((ele,i)=>{
+                    return(
+                      <option key={i} value={i+1}>{i+1}</option>
+                    )
+                  })}
+                  
+                </Form.Control>
               </div>
             </Form.Group>
             <Form.Group
@@ -135,16 +133,6 @@ export const BookAppointment = (props) => {
               className="mb-3"
               controlId="doctor_patient_Details"
             >
-              <div style={{ marginRight: "30px" }}>
-                <Form.Label>Patient name</Form.Label>
-                <Form.Control
-                  onChange={onChange}
-                  type="text"
-                  placeholder="Enter Patient name"
-                  name="patientName"
-                  value={details.patientName}
-                />
-              </div>
             </Form.Group>
             <Form.Group
               style={{ display: "flex", flexDirection: "row" }}
@@ -159,17 +147,6 @@ export const BookAppointment = (props) => {
                   placeholder="Enter Slot number"
                   name="slotNo"
                   value={details.slotNo}
-                />
-              </div>
-              <div style={{ marginRight: "30px" }}>
-                <Form.Label>Date</Form.Label>
-                <Form.Control
-                  onChange={onChange}
-                  type="text"
-                  disabled="disabled"
-                  placeholder={Tommorowdate}
-                  name="date"
-                  value={Tommorowdate}
                 />
               </div>
             </Form.Group>
