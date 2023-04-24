@@ -33,7 +33,7 @@ export const SellMedicine = (props) => {
 
     async function getAllDoctors() {
       const resp = await fetch(
-        "http://172.22.62.194:5000/api/auth/doctor/getalldoctors",
+        "http://localhost:5000/api/auth/doctor/getalldoctors",
         {
           method: "GET",
         }

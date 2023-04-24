@@ -2,7 +2,7 @@ import { useState } from "react";
 import PharmacistContext from "./pharmacistContext";
 
 const PharmacistState = (props) => {
-    const host = "http://172.22.62.194:5000";
+    const host = "http://localhost:5000";
     const [pharmacist, setPharmacist] = useState(null);
     const [myReceipts, setMyReceipts] = useState([])
 

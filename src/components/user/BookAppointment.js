@@ -7,6 +7,7 @@ export const BookAppointment = (props) => {
   const [details, setDetails] = useState({
     doctorId: "",
     doctorName: "",
+    patientId: "",
     patientName: "",
     slotNo: "",
     date: "",
@@ -17,19 +18,18 @@ export const BookAppointment = (props) => {
   const contract = props.contract;
   let web3 = window.web3;
   const ethereum = window.ethereum;
-  const [account,setacc] = useState([])
+  const [account, setacc] = useState([]);
 
-  const { bookAppointment } = context;
+  const { bookAppointment, getUser } = context;
   useEffect(() => {
     async function loadBlockchainData() {
       web3 = new Web3(ethereum);
       let x = await web3.eth.getAccounts();
-      setacc(x)
+      setacc(x);
     }
-
     async function getAllDoctors() {
       const resp = await fetch(
-        "http://172.22.62.194:5000/api/auth/doctor/getalldoctors",
+        "http://localhost/api/auth/doctor/getalldoctors",
         {
           method: "GET",
         }
@@ -38,32 +38,48 @@ export const BookAppointment = (props) => {
       const doctorArray = await resp.json();
       setDoctors(doctorArray);
     }
+    async function getAppointmentDetails() {
+      if (localStorage.getItem("token")) {
+        const user = await getUser(localStorage.getItem("token"));
+        if (user._id) {
+          console.log(user);
+          details.patientName = user.name;
+          //details.doctorId = value from dropdown
+          //details.doctorName = doctor name from db
+        } else {
+          console.log("Auth token not found");
+        }
+      }
+    }
     var currentDate = new Date();
     currentDate.setDate(currentDate.getDate() + 1);
     let dd = currentDate.getDate();
     let mm = currentDate.getMonth() + 1;
     let yyyy = currentDate.getFullYear();
     if (dd < 10) {
-      dd = '0' + dd;
+      dd = "0" + dd;
     }
     if (mm < 10) {
-      mm = '0' + mm;
+      mm = "0" + mm;
     }
-    setTommorowDate(`${dd}-${mm}-${yyyy}`)
-    loadBlockchainData()
+    setTommorowDate(`${dd}-${mm}-${yyyy}`);
+    loadBlockchainData();
     getAllDoctors();
+    getAppointmentDetails();
   }, []);
 
   const onSubmit = async (e) => {
     e.preventDefault();
 
     let isSubmit = true;
-    const isDateValid = dateValidation();
+    console.log(details)
+
+    /*const isDateValid = dateValidation();
 
     if (!isDateValid) {
       alert("Date cannot be in the past.");
       isSubmit = false;
-    }
+    }*/
     // bookAppointment(details.patientName,details.doctorName, details.slotNo, details.date);
     if (isSubmit) {
       details.date = Tommorowdate;
@@ -85,14 +101,15 @@ export const BookAppointment = (props) => {
   };
   const onChange = (e) => {
     setDetails({ ...details, [e.target.name]: e.target.value });
+    console.log(details)
   };
-  const dateValidation = () => {
+  /*const dateValidation = () => {
     var now = new Date();
     if (details.date == now.toJSON().slice(0, 10) + 1) {
       return false;
     }
     return true;
-  };
+  };*/
   return (
     <>
       <div style={{ display: "flex", flexDirection: "row" }}>
@@ -107,70 +124,28 @@ export const BookAppointment = (props) => {
             <Form.Group
               style={{ display: "flex", flexDirection: "row" }}
               className="mb-3"
-              controlId="doctor_patient_Details"
-            >
-              <div style={{ marginRight: "30px" }}>
-                <Form.Label>Doctor id</Form.Label>
-                <Form.Control
-                  onChange={onChange}
-                  type="text"
-                  placeholder="Enter Doctor id"
-                  name="doctorId"
-                  value={details.doctorId}
-                />
-              </div>
-              <div style={{ marginRight: "30px" }}>
-                <Form.Label>Doctor name</Form.Label>
-                <Form.Control
-                  onChange={onChange}
-                  type="text"
-                  placeholder="Enter Doctor name"
-                  name="doctorName"
-                  value={details.doctorName}
-                />
-              </div>
-            </Form.Group>
-            <Form.Group
-              style={{ display: "flex", flexDirection: "row" }}
-              className="mb-3"
-              controlId="doctor_patient_Details"
-            >
-              <div style={{ marginRight: "30px" }}>
-                <Form.Label>Patient name</Form.Label>
-                <Form.Control
-                  onChange={onChange}
-                  type="text"
-                  placeholder="Enter Patient name"
-                  name="patientName"
-                  value={details.patientName}
-                />
-              </div>
-            </Form.Group>
-            <Form.Group
-              style={{ display: "flex", flexDirection: "row" }}
-              className="mb-3"
               controlId="slotDetails"
             >
-              <div style={{ marginRight: "30px" }}>
-                <Form.Label>Slot number</Form.Label>
+            <div style={{display:"flex",flexDirection:"column",marginRight:"30px"}}>
+            <div>
+                <Form.Label>Patient Id</Form.Label>
                 <Form.Control
                   onChange={onChange}
                   type="text"
-                  placeholder="Enter Slot number"
-                  name="slotNo"
-                  value={details.slotNo}
+                  placeholder="Enter id"
+                  name="patientId"
+                  value={details.patientId}
                 />
               </div>
-              <div style={{ marginRight: "30px" }}>
-                <Form.Label>Date</Form.Label>
-                <Form.Control
-                  onChange={onChange}
-                  type="text"
-                  disabled="disabled"
-                  placeholder={Tommorowdate}
-                  name="date"
-                  value={Tommorowdate}
-                />
+              <Form.Label>Slot number</Form.Label>
+              <Form.Select aria-label="Slot number"  name = "slotNo" onChange={onChange} value={details.slotNo}>
+                <option>Select Slot Number</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                </Form.Select>
               </div>
             </Form.Group>
             <div style={{ marginRight: "30px" }}>
