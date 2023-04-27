@@ -64,9 +64,8 @@ export const SellMedicine = (props) => {
     setDetails({ ...details, [e.target.name]: e.target.value });
   };
   const onSubmit = async (e) => {
-    console.log(props.contract)
     let isSubmit = true;
-    console.log(details)
+    
     e.preventDefault();
     // const isDateValid = dateValidation();
     // if (!isDateValid) {
