@@ -194,6 +194,15 @@ export const Navbar = () => {
               </li>
               <li className="nav-item">
                 <Link
+                  className={`nav-link ${location.pathname === "/admin/viewmed" ? "active" : ""
+                    }`}
+                  to="/admin/viewmed"
+                >
+                  Medicine Details
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link
                   className={`nav-link ${location.pathname === "/admin/accdetails" ? "active" : ""
                     }`}
                   to="/admin/accdetails"

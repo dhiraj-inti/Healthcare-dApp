@@ -155,6 +155,11 @@ function App() {
                 />
                 <Route
                   exact
+                  path="admin/viewmed"
+                  element={<MedicineDetail contract={DIContract} />}
+                />
+                <Route
+                  exact
                   path="admin/accdetails"
                   element={<AccountDetails type="admin" />}
                 />
