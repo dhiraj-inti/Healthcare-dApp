@@ -91,8 +91,8 @@ export const SellMedicine = (props) => {
           .send({ from: account[0] });
         alert("Receipt added successfully !");
       } catch (error) {
-        console.log(error)
-        alert('Enter all the details');
+        console.log(error.value)
+        alert('Details not filled properly or the transaction is failed!');
       }
     }
   };
