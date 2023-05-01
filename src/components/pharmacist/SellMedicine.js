@@ -126,6 +126,7 @@ export const SellMedicine = (props) => {
                   name="doctorId"
                   value={details.doctorId}
                 >
+                  <option >Choose doctor id</option>
                   {doctors.map((ele,i)=>{
                     return(
                       <option key={i} value={i+1}>{i+1}</option>
