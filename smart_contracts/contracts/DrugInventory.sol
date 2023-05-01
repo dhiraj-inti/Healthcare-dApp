@@ -57,14 +57,16 @@ contract DrugInventory {
         string[][] memory _medicines,
         string memory date
     ) public {
+        bool found = false;
         for (uint i = 0; i < medicines.length; i++) {
             for(uint j=0; j<_medicines.length; j++) {
                 if(medicines[i].rfid == stringToUint(_medicines[j][0])){
                     require(medicines[i].qty >= stringToUint(_medicines[j][1]),"Insufficient quantity available");
-                    medicines[i].qty -= stringToUint(_medicines[j][1]);
+                    found = true;
                 }
             }
         }
+        require(found==true,"Medicine not found");
         receipts.push(Receipt(pname, docid, phid, _medicines, date, block.timestamp));
         receiptsGenerated += 1;
         emit generateReceipt(pname, docid, phid, _medicines, date, block.timestamp);
