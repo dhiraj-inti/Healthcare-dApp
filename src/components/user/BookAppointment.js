@@ -9,7 +9,7 @@ export const BookAppointment = (props) => {
     doctorName: "",
     patientId: "",
     patientName: "",
-    slotNo: "",
+    slotNo: "0",
     date: "",
   });
   const [doctors, setDoctors] = useState([]);
@@ -29,7 +29,7 @@ export const BookAppointment = (props) => {
     }
     async function getAllDoctors() {
       const resp = await fetch(
-        "http://localhost/api/auth/doctor/getalldoctors",
+        "http://172.22.62.194:5000/api/auth/doctor/getalldoctors",
         {
           method: "GET",
         }
@@ -42,7 +42,6 @@ export const BookAppointment = (props) => {
       if (localStorage.getItem("token")) {
         const user = await getUser(localStorage.getItem("token"));
         if (user._id) {
-          console.log(user);
           details.patientName = user.name;
           //details.doctorId = value from dropdown
           //details.doctorName = doctor name from db
@@ -81,7 +80,7 @@ export const BookAppointment = (props) => {
       isSubmit = false;
     }*/
     // bookAppointment(details.patientName,details.doctorName, details.slotNo, details.date);
-    if (isSubmit) {
+    if (isSubmit && details.slotNo!=="0") {
       details.date = Tommorowdate;
       try {
         const user = await getUser(localStorage.getItem('token'))
@@ -98,6 +97,9 @@ export const BookAppointment = (props) => {
       } catch (error) {
         alert("Slot already filled");
       }
+    }
+    else{
+      alert("Choose Slot Number!")
     }
   };
   const onChange = (e) => {
@@ -145,6 +147,24 @@ export const BookAppointment = (props) => {
                   
                 </Form.Control>
               </div>
+              <div style={{ marginRight: "30px" }}>
+                <Form.Label>Slot Number</Form.Label>
+                <Form.Control
+                  onChange={onChange}
+                  as="select"
+                  placeholder="Select Slot Number"
+                  name="slotNo"
+                  value={details.slotNo}
+                >
+                  <option >Choose Slot Number</option>
+                  <option key={1} value="1">1</option>
+                  <option key={2} value="2">2</option>
+                  <option key={3} value="3">3</option>
+                  <option key={4} value="4">4</option>
+                  <option key={5} value="5">5</option>
+                  
+                </Form.Control>
+              </div>
             </Form.Group>
             <Form.Group
               style={{ display: "flex", flexDirection: "row" }}
@@ -152,7 +172,7 @@ export const BookAppointment = (props) => {
               controlId="doctor_patient_Details"
             >
             </Form.Group>
-            <Form.Group
+            {/* <Form.Group
               style={{ display: "flex", flexDirection: "row" }}
               className="mb-3"
               controlId="slotDetails"
@@ -169,7 +189,7 @@ export const BookAppointment = (props) => {
                 />
               </div>
             </div>
-            </Form.Group>
+            </Form.Group> */}
             <div style={{ marginRight: "30px" }}>
               <Button variant="primary" type="submit">
                 Submit

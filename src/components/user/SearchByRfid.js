@@ -3,7 +3,7 @@ import Web3 from "web3";
 
 export const SearchByRfid = (props) => {
     const [medRes, setMedRes] = useState([]);
-    const [med, setMed] = useState("")
+    const [med, setMed] = useState("1")
     const [rfid,setRfid] = useState("");
     let web3 = window.web3;
     const ethereum = window.ethereum;
@@ -46,12 +46,12 @@ export const SearchByRfid = (props) => {
             <form  onSubmit={handleSubmit}>
                 <div className="mb-3">
                     <label htmlFor="text" className="form-label">RFID</label>
-                    <input type="text" className="form-control" value={rfid} onChange={onChange} id="rfid" name="rfid" />
+                    <input style={{width:"250px"}} type="text" className="form-control" value={rfid} onChange={onChange} id="rfid" name="rfid"/>
                 </div>
 
                 <button type="submit" className="btn btn-primary">Submit</button>
             </form>
-            {med && <table className="table table-info table-hover table-striped-columns">
+            {med!=="" && med!=="1" && <table className="table table-info table-hover table-striped-columns">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -85,6 +85,7 @@ export const SearchByRfid = (props) => {
                         
                 </tbody>
             </table>}
+            {med==="1" && ""}
             {med==="" && "No results found!"}
         </div>
     );

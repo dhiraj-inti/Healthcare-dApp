@@ -6,7 +6,7 @@ import Web3 from "web3";
 
 export const SellMedicine = (props) => {
   const [details, setDetails] = useState({
-    doctorId: "",
+    doctorId: "0",
     doctorName: "",
     pharmaId: "",
     pharmaName: "",
@@ -79,12 +79,19 @@ export const SellMedicine = (props) => {
         const innerdescription = description[i].split(",");
         description[i] = innerdescription;
       }
+      if(details.doctorId==="0"){
+        alert("Select Doctor ID");
+        return;
+      }
+
+      const pharmacist = await getPharmacist(localStorage.getItem('pharmaToken'));
+      console.log(pharmacist._id)
       try {
         const hash = await contract.methods
           .addReceipt(
             details.patientName,
             parseInt(details.doctorId),
-            details.pharmaId,
+            pharmacist.dId,
             description,
             Todaydate
           )
@@ -126,7 +133,7 @@ export const SellMedicine = (props) => {
                   name="doctorId"
                   value={details.doctorId}
                 >
-                  <option >Choose doctor id</option>
+                  <option value="0">Choose doctor id</option>
                   {doctors.map((ele,i)=>{
                     return(
                       <option key={i} value={i+1}>{i+1}</option>
@@ -151,7 +158,7 @@ export const SellMedicine = (props) => {
               className="mb-3"
               controlId="pharmacist_Details"
             >
-              <div style={{ marginRight: "30px" }}>
+              {/* <div style={{ marginRight: "30px" }}>
                 <Form.Label>Pharmacist id</Form.Label>
                 <Form.Control
                   type="text"
@@ -160,7 +167,7 @@ export const SellMedicine = (props) => {
                   name="pharmaId"
                   value={details.pharmaId}
                 />
-              </div>
+              </div> */}
               {/* <div style={{ marginRight: "30px" }}>
                 <Form.Label>Pharmacist name</Form.Label>
                 <Form.Control
