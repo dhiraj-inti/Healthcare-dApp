@@ -61,7 +61,37 @@ export const AccountDetails = (props) => {
         <h1>Account Details</h1>
         
         <Table striped bordered style={{ marginTop: "20px", width: "500px" }}>
-          {details!==null && (props.type==="user" || props.type==="pharmacist") &&<tbody>
+          {details!==null && props.type==="user" &&<tbody>
+            <tr>
+              <td><b>Id</b></td>
+              <td>{details._id}</td>
+            </tr>
+            <tr>
+              <td><b>Name</b></td>
+              <td>{details.name}</td>
+            </tr>
+            <tr>
+              <td><b>DOB</b></td>
+              <td>{details.dob}</td>
+            </tr>
+            <tr>
+              <td><b>Phone number</b></td>
+              <td>{details.phoneNumber}</td>
+            </tr>
+            <tr>
+              <td><b>IPFS path</b></td>
+              <td><a href={details.ipfsPath} target='_blank'>Click here </a></td>
+            </tr>
+            <tr>
+              <td><b>E - Mail</b></td>
+              <td>{details.email}</td>
+            </tr>
+            <tr>
+              <td ><b>Account Address</b></td>
+              <td>{acc[0]}</td>
+            </tr>
+          </tbody>}
+          {details!==null && props.type==="pharmacist" &&<tbody>
             <tr>
               <td><b>Id</b></td>
               <td>{details._id}</td>
