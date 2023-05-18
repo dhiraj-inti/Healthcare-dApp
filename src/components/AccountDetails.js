@@ -79,8 +79,8 @@ export const AccountDetails = (props) => {
               <td>{details.phoneNumber}</td>
             </tr>
             <tr>
-              <td><b>IPFS path</b></td>
-              <td><a href={details.ipfsPath} target='_blank'>Click here </a></td>
+              <td><b>Medical History</b></td>
+              <td><a href={details.ipfsPath} target='_blank'>Click here</a></td>
             </tr>
             <tr>
               <td><b>E - Mail</b></td>
@@ -131,7 +131,7 @@ export const AccountDetails = (props) => {
               <td>{details.phoneNumber}</td>
             </tr>
             <tr>
-              <td ><b>Account Address</b></td>
+              <td><b>Account Address</b></td>
               <td>{acc[0]}</td>
             </tr>
           </tbody>}
